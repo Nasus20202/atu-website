@@ -55,6 +55,13 @@ Run tests (Vitest):
 pnpm vitest run
 ```
 
+Run E2E tests (Playwright):
+
+```sh
+pnpm exec playwright install --with-deps chromium firefox
+pnpm playwright test
+```
+
 ## Docker
 
 **Development** (builds locally):
