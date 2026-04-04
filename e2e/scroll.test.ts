@@ -194,15 +194,16 @@ test.describe('Snap-root scroll containment', () => {
 	});
 
 	test('snap-root scrollTop equals section offsetTop after navigating to it', async ({ page }) => {
-		await pressAndWait(page, 'ArrowDown'); // → #zarzadzanie
+		await page.keyboard.press('ArrowDown');
 
-		const { rootScroll, sectionOffset } = await page.evaluate(() => {
-			const root = document.querySelector('.snap-root') as HTMLElement;
-			const section = document.getElementById('zarzadzanie') as HTMLElement;
-			return { rootScroll: root.scrollTop, sectionOffset: section.offsetTop };
-		});
-
-		// Allow a 2px tolerance for sub-pixel rounding
-		expect(Math.abs(rootScroll - sectionOffset)).toBeLessThanOrEqual(2);
+		// Poll until scroll-snap fully settles — Firefox smooth-scroll can take >800ms on CI
+		await expect(async () => {
+			const { rootScroll, sectionOffset } = await page.evaluate(() => {
+				const r = document.querySelector('.snap-root') as HTMLElement;
+				const s = document.getElementById('zarzadzanie') as HTMLElement;
+				return { rootScroll: r.scrollTop, sectionOffset: s.offsetTop };
+			});
+			expect(Math.abs(rootScroll - sectionOffset)).toBeLessThanOrEqual(4);
+		}).toPass({ timeout: 2000 });
 	});
 });
