@@ -6,9 +6,9 @@
 	// Hero + Management share hero.webp — same id keeps bg stable between them.
 	const LAYERS = [
 		{ id: 'hero', src: '/img/hero.webp' },
-		{ id: 'omnie', src: '/img/waterfront.webp' },
+		{ id: 'omnie', src: '/img/town-hall.webp' },
 		{ id: 'oferta', src: '/img/fountain.webp' },
-		{ id: 'uprawnienia', src: '/img/town-hall.webp' },
+		{ id: 'uprawnienia', src: '/img/waterfront.webp' },
 		{ id: 'contact', src: '/img/night.webp' }
 	];
 
