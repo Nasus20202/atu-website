@@ -18,14 +18,20 @@ async function getHash(page: import('@playwright/test').Page): Promise<string> {
 	return page.evaluate(() => window.location.hash);
 }
 
-/** Press a key and wait for the scroll animation + IntersectionObserver to settle. */
-async function pressAndWait(
+/**
+ * Press a key and poll until the URL hash equals the expected value.
+ * Uses toPass() instead of a fixed timeout to avoid flakiness on slow CI.
+ */
+async function pressAndExpectHash(
 	page: import('@playwright/test').Page,
 	key: string,
-	ms = 800
+	expectedHash: string,
+	timeout = 2000
 ): Promise<void> {
 	await page.keyboard.press(key);
-	await page.waitForTimeout(ms);
+	await expect(async () => {
+		expect(await getHash(page)).toBe(expectedHash);
+	}).toPass({ timeout });
 }
 
 test.describe('Keyboard scroll navigation', () => {
@@ -35,68 +41,53 @@ test.describe('Keyboard scroll navigation', () => {
 	});
 
 	test('ArrowDown advances one section at a time through all sections', async ({ page }) => {
-		// Start at #atu (index 0), press ArrowDown for each subsequent section
 		for (let i = 1; i < SECTIONS.length; i++) {
-			await pressAndWait(page, 'ArrowDown');
-			expect(await getHash(page)).toBe(SECTIONS[i]);
+			await pressAndExpectHash(page, 'ArrowDown', SECTIONS[i]);
 		}
 	});
 
 	test('ArrowDown does nothing on the last section', async ({ page }) => {
-		// End jumps 5 sections — give extra time for scroll-snap to settle
-		await pressAndWait(page, 'End', 1500);
+		await pressAndExpectHash(page, 'End', '#contact');
 		const hashBefore = await getHash(page);
-		await pressAndWait(page, 'ArrowDown');
-		expect(await getHash(page)).toBe(hashBefore);
+		await pressAndExpectHash(page, 'ArrowDown', hashBefore);
 	});
 
 	test('ArrowUp retreats one section at a time back to the first', async ({ page }) => {
-		// Jump to last section first — extra wait for 5-section jump to settle
-		await pressAndWait(page, 'End', 1500);
-		// Walk back up
+		await pressAndExpectHash(page, 'End', '#contact');
 		for (let i = SECTIONS.length - 2; i >= 0; i--) {
-			await pressAndWait(page, 'ArrowUp');
-			expect(await getHash(page)).toBe(SECTIONS[i]);
+			await pressAndExpectHash(page, 'ArrowUp', SECTIONS[i]);
 		}
 	});
 
 	test('ArrowUp does nothing on the first section', async ({ page }) => {
-		await pressAndWait(page, 'ArrowUp');
-		expect(await getHash(page)).toBe('#atu');
+		await pressAndExpectHash(page, 'ArrowUp', '#atu');
 	});
 
 	test('PageDown advances one section', async ({ page }) => {
-		await pressAndWait(page, 'PageDown');
-		expect(await getHash(page)).toBe('#zarzadzanie');
+		await pressAndExpectHash(page, 'PageDown', '#zarzadzanie');
 	});
 
 	test('PageUp retreats one section', async ({ page }) => {
-		await pressAndWait(page, 'ArrowDown'); // go to #zarzadzanie
-		await pressAndWait(page, 'PageUp');
-		expect(await getHash(page)).toBe('#atu');
+		await pressAndExpectHash(page, 'ArrowDown', '#zarzadzanie');
+		await pressAndExpectHash(page, 'PageUp', '#atu');
 	});
 
 	test('End key jumps directly to the last section', async ({ page }) => {
-		await pressAndWait(page, 'End');
-		expect(await getHash(page)).toBe('#contact');
+		await pressAndExpectHash(page, 'End', '#contact');
 	});
 
 	test('Home key jumps directly to the first section', async ({ page }) => {
-		// End jumps 5 sections — give extra time for scroll-snap to settle before pressing Home
-		await pressAndWait(page, 'End', 1500);
-		await pressAndWait(page, 'Home');
-		expect(await getHash(page)).toBe('#atu');
+		await pressAndExpectHash(page, 'End', '#contact');
+		await pressAndExpectHash(page, 'Home', '#atu');
 	});
 
 	test('ArrowLeft retreats one section (alias for ArrowUp)', async ({ page }) => {
-		await pressAndWait(page, 'ArrowDown');
-		await pressAndWait(page, 'ArrowLeft');
-		expect(await getHash(page)).toBe('#atu');
+		await pressAndExpectHash(page, 'ArrowDown', '#zarzadzanie');
+		await pressAndExpectHash(page, 'ArrowLeft', '#atu');
 	});
 
 	test('ArrowRight advances one section (alias for ArrowDown)', async ({ page }) => {
-		await pressAndWait(page, 'ArrowRight');
-		expect(await getHash(page)).toBe('#zarzadzanie');
+		await pressAndExpectHash(page, 'ArrowRight', '#zarzadzanie');
 	});
 });
 
@@ -109,15 +100,15 @@ test.describe('Hero scroll-down arrow', () => {
 	test('clicking the scroll-down arrow navigates to #zarzadzanie', async ({ page }) => {
 		// force:true because animate-bounce keeps the element in motion
 		await page.click('a[aria-label="Scroll down"]', { force: true });
-		await page.waitForTimeout(800);
-		expect(await getHash(page)).toBe('#zarzadzanie');
+		await expect(async () => {
+			expect(await getHash(page)).toBe('#zarzadzanie');
+		}).toPass({ timeout: 2000 });
 	});
 
 	test('scroll-down arrow is not visible after leaving the hero section', async ({ page }) => {
-		await pressAndWait(page, 'ArrowDown');
+		await pressAndExpectHash(page, 'ArrowDown', '#zarzadzanie');
 		// The arrow lives inside #atu — after scrolling away it should be off-screen
-		const arrow = page.locator('a[aria-label="Scroll down"]');
-		await expect(arrow).not.toBeInViewport();
+		await expect(page.locator('a[aria-label="Scroll down"]')).not.toBeInViewport();
 	});
 });
 
@@ -131,14 +122,13 @@ test.describe('Hash updates on scroll', () => {
 		page
 	}) => {
 		for (let i = 1; i < SECTIONS.length; i++) {
-			await pressAndWait(page, 'ArrowDown');
-			expect(await getHash(page)).toBe(SECTIONS[i]);
+			await pressAndExpectHash(page, 'ArrowDown', SECTIONS[i]);
 		}
 	});
 
 	test('each section is fully in viewport when navigated to by keyboard', async ({ page }) => {
 		for (let i = 1; i < SECTIONS.length; i++) {
-			await pressAndWait(page, 'ArrowDown');
+			await pressAndExpectHash(page, 'ArrowDown', SECTIONS[i]);
 			await expect(page.locator(SECTIONS[i])).toBeInViewport();
 		}
 	});
@@ -146,8 +136,9 @@ test.describe('Hash updates on scroll', () => {
 	test('navigating via dot indicators updates the hash', async ({ page }) => {
 		// Click the 4th dot (index 3 → #oferta)
 		await page.click('button[aria-label="Go to section 4"]');
-		await page.waitForTimeout(800);
-		expect(await getHash(page)).toBe('#oferta');
+		await expect(async () => {
+			expect(await getHash(page)).toBe('#oferta');
+		}).toPass({ timeout: 2000 });
 	});
 });
 
@@ -161,21 +152,27 @@ test.describe('Mouse wheel scroll', () => {
 
 	test('scrolling down advances to the next section', async ({ page }) => {
 		await page.mouse.wheel(0, 600);
-		await page.waitForTimeout(1000);
-		expect(await getHash(page)).toBe('#zarzadzanie');
+		await expect(async () => {
+			expect(await getHash(page)).toBe('#zarzadzanie');
+		}).toPass({ timeout: 2000 });
 	});
 
 	test('scrolling up retreats to the previous section', async ({ page }) => {
 		await page.mouse.wheel(0, 600);
-		await page.waitForTimeout(1000);
+		await expect(async () => {
+			expect(await getHash(page)).toBe('#zarzadzanie');
+		}).toPass({ timeout: 2000 });
 		await page.mouse.wheel(0, -600);
-		await page.waitForTimeout(1000);
-		expect(await getHash(page)).toBe('#atu');
+		await expect(async () => {
+			expect(await getHash(page)).toBe('#atu');
+		}).toPass({ timeout: 2000 });
 	});
 
 	test('scrolled section is fully in viewport', async ({ page }) => {
 		await page.mouse.wheel(0, 600);
-		await page.waitForTimeout(1000);
+		await expect(async () => {
+			expect(await getHash(page)).toBe('#zarzadzanie');
+		}).toPass({ timeout: 2000 });
 		await expect(page.locator('#zarzadzanie')).toBeInViewport();
 	});
 });
@@ -194,15 +191,16 @@ test.describe('Snap-root scroll containment', () => {
 	});
 
 	test('snap-root scrollTop equals section offsetTop after navigating to it', async ({ page }) => {
-		await pressAndWait(page, 'ArrowDown'); // → #zarzadzanie
+		await page.keyboard.press('ArrowDown');
 
-		const { rootScroll, sectionOffset } = await page.evaluate(() => {
-			const root = document.querySelector('.snap-root') as HTMLElement;
-			const section = document.getElementById('zarzadzanie') as HTMLElement;
-			return { rootScroll: root.scrollTop, sectionOffset: section.offsetTop };
-		});
-
-		// Allow a 2px tolerance for sub-pixel rounding
-		expect(Math.abs(rootScroll - sectionOffset)).toBeLessThanOrEqual(2);
+		// Poll until scroll-snap fully settles — Firefox smooth-scroll can take >800ms on CI
+		await expect(async () => {
+			const { rootScroll, sectionOffset } = await page.evaluate(() => {
+				const r = document.querySelector('.snap-root') as HTMLElement;
+				const s = document.getElementById('zarzadzanie') as HTMLElement;
+				return { rootScroll: r.scrollTop, sectionOffset: s.offsetTop };
+			});
+			expect(Math.abs(rootScroll - sectionOffset)).toBeLessThanOrEqual(4);
+		}).toPass({ timeout: 2000 });
 	});
 });

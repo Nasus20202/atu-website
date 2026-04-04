@@ -47,6 +47,8 @@
 	}
 
 	function navigate(id: string) {
+		history.replaceState(null, '', `#${id}`);
+		activeId = id;
 		scrollToSection(id);
 		closeMenu();
 	}

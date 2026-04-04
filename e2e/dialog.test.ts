@@ -8,8 +8,6 @@ async function openDialog(page: import('@playwright/test').Page): Promise<void> 
 	await page.locator('#uprawnienia button:has-text("Akty prawne")').waitFor({ state: 'visible' });
 	await page.click('#uprawnienia button:has-text("Akty prawne")');
 	await page.locator('dialog[aria-label="Akty prawne"]').waitFor({ state: 'visible' });
-	// Wait for slide-in transition to complete
-	await page.waitForTimeout(400);
 }
 
 test.describe('Legal acts dialog', () => {
@@ -26,17 +24,15 @@ test.describe('Legal acts dialog', () => {
 	test('close button dismisses the dialog', async ({ page }) => {
 		await openDialog(page);
 		await page.click('button[aria-label="Zamknij"]');
-		// Wait for the fade-out + transitionend before dialog.close()
-		await page.waitForTimeout(400);
 		await expect(page.locator('dialog[aria-label="Akty prawne"]')).not.toBeVisible();
 	});
 
 	test('clicking the backdrop dismisses the dialog', async ({ page }) => {
 		await openDialog(page);
 		const dialog = page.locator('dialog[aria-label="Akty prawne"]');
-		// Click the top-right corner of the viewport — always outside the centered panel
-		await page.mouse.click(page.viewportSize()!.width - 4, 4);
-		await page.waitForTimeout(400);
+		// Dispatch a click directly on the dialog element (simulates clicking outside the panel).
+		// A coordinate click is unreliable because fixed UI (navbar, SectionNav) may intercept it.
+		await dialog.dispatchEvent('click');
 		await expect(dialog).not.toBeVisible();
 	});
 
@@ -59,7 +55,6 @@ test.describe('Legal acts dialog', () => {
 	test('Escape key dismisses the dialog', async ({ page }) => {
 		await openDialog(page);
 		await page.keyboard.press('Escape');
-		await page.waitForTimeout(400);
 		await expect(page.locator('dialog[aria-label="Akty prawne"]')).not.toBeVisible();
 	});
 });

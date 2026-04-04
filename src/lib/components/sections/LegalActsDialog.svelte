@@ -13,8 +13,18 @@
 	}
 	function close() {
 		visible = false;
-		// wait for fade-out then close
-		dialog.addEventListener('transitionend', () => dialog.close(), { once: true });
+		// Wait for fade-out transition then close the native dialog.
+		// The 400ms fallback handles cases where transitionend never fires
+		// (prefers-reduced-motion, off-screen elements, mobile browser throttling).
+		const fallback = setTimeout(() => dialog.close(), 400);
+		dialog.addEventListener(
+			'transitionend',
+			() => {
+				clearTimeout(fallback);
+				dialog.close();
+			},
+			{ once: true }
+		);
 	}
 	function onBackdrop(e: MouseEvent) {
 		if (e.target === dialog) close();
@@ -95,17 +105,21 @@
 </dialog>
 
 <style>
-	/* Native dialog reset + centering */
+	/* Native dialog reset + full-viewport overlay so backdrop clicks hit the dialog element */
 	.dialog-root {
 		background: transparent;
 		border: none;
 		padding: 0;
 		position: fixed;
 		inset: 0;
-		margin: auto;
-		width: min(680px, calc(100vw - 2rem));
-		max-height: 90dvh;
-		transition: opacity 0.25s ease;
+		margin: 0;
+		width: 100dvw;
+		height: 100dvh;
+		max-width: 100dvw;
+		max-height: 100dvh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.dialog-root:not([open]) {
@@ -126,6 +140,7 @@
 		box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 		display: flex;
 		flex-direction: column;
+		width: min(680px, calc(100vw - 2rem));
 		max-height: 90dvh;
 		overflow: hidden; /* keeps border-radius clipping */
 		transform: translateY(24px) scale(0.97);

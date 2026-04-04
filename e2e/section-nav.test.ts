@@ -4,6 +4,16 @@ async function getHash(page: import('@playwright/test').Page): Promise<string> {
 	return page.evaluate(() => window.location.hash);
 }
 
+async function expectHash(
+	page: import('@playwright/test').Page,
+	expectedHash: string,
+	timeout = 2000
+): Promise<void> {
+	await expect(async () => {
+		expect(await getHash(page)).toBe(expectedHash);
+	}).toPass({ timeout });
+}
+
 test.describe('SectionNav arrows', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto('/');
@@ -15,24 +25,21 @@ test.describe('SectionNav arrows', () => {
 	});
 
 	test('Next section arrow is disabled on the last section', async ({ page }) => {
-		// Jump straight to the last section via End key
 		await page.keyboard.press('End');
-		await page.waitForTimeout(800);
+		await expectHash(page, '#contact');
 		await expect(page.locator('button[aria-label="Next section"]')).toBeDisabled();
 	});
 
 	test('Next section arrow advances from #atu to #zarzadzanie', async ({ page }) => {
 		await page.click('button[aria-label="Next section"]');
-		await page.waitForTimeout(800);
-		expect(await getHash(page)).toBe('#zarzadzanie');
+		await expectHash(page, '#zarzadzanie');
 	});
 
 	test('Previous section arrow retreats from #zarzadzanie to #atu', async ({ page }) => {
 		await page.keyboard.press('ArrowDown');
-		await page.waitForTimeout(800);
+		await expectHash(page, '#zarzadzanie');
 		await page.click('button[aria-label="Previous section"]');
-		await page.waitForTimeout(800);
-		expect(await getHash(page)).toBe('#atu');
+		await expectHash(page, '#atu');
 	});
 
 	test('dot indicator for active section is taller than inactive dots', async ({ page }) => {
@@ -47,7 +54,6 @@ test.describe('SectionNav arrows', () => {
 	test('clicking a dot navigates to that section', async ({ page }) => {
 		// Click dot for section 3 (index 2 → #omnie)
 		await page.click('button[aria-label="Go to section 3"]');
-		await page.waitForTimeout(800);
-		expect(await getHash(page)).toBe('#omnie');
+		await expectHash(page, '#omnie');
 	});
 });
