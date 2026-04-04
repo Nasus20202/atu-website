@@ -6,7 +6,7 @@
 <section id="atu" class="snap-section">
 	<div class="relative z-10 text-center text-white px-6" style="margin-top: -60px">
 		<h1
-			class="font-heading text-[clamp(3rem,7vw,5.5rem)] font-bold tracking-tight drop-shadow-lg mb-4"
+			class="font-heading text-[clamp(2.6rem,7vw,5.5rem)] font-bold tracking-tight drop-shadow-lg mb-4"
 		>
 			ATU Nieruchomości
 		</h1>
