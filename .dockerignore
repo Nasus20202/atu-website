@@ -1,0 +1,32 @@
+# Node / build artifacts
+node_modules
+.svelte-kit
+build
+coverage
+
+# Source files not needed in Docker build context
+src/akty.html
+src/index.html
+src/css
+src/js
+src/fontawesome-free-6.1.1-web
+src/magnific-popup
+src/slick
+src/img
+
+# Root photos (processed into static/img during build)
+*.jpg
+
+# Dev/editor
+.git
+.gitignore
+.editorconfig
+openspec
+README.md
+
+# Docker
+Dockerfile
+docker-compose*.yaml
+
+# CI
+.github
