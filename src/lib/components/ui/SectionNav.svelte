@@ -6,10 +6,48 @@
 	let activeIndex = $state(0);
 
 	onMount(() => {
-		return createSectionObserver((id) => {
+		const cleanupObserver = createSectionObserver((id) => {
 			const idx = SECTION_IDS.indexOf(id as (typeof SECTION_IDS)[number]);
 			if (idx !== -1) activeIndex = idx;
 		});
+
+		const onKeyDown = (event: KeyboardEvent) => {
+			function goAndPreventDefault(idx: number) {
+				event.preventDefault();
+				go(idx);
+			}
+			if (
+				(event.key === 'ArrowUp' ||
+					event.key === 'PageUp' ||
+					event.key === 'ArrowLeft' ||
+					event.key === 'Backspace') &&
+				activeIndex > 0
+			) {
+				goAndPreventDefault(activeIndex - 1);
+			}
+			if (
+				(event.key === 'ArrowDown' ||
+					event.key === 'PageDown' ||
+					event.key === 'ArrowRight' ||
+					event.key === 'Enter') &&
+				activeIndex < SECTION_IDS.length - 1
+			) {
+				goAndPreventDefault(activeIndex + 1);
+			}
+			if (event.key === 'Home') {
+				goAndPreventDefault(0);
+			}
+			if (event.key === 'End') {
+				goAndPreventDefault(SECTION_IDS.length - 1);
+			}
+		};
+
+		window.addEventListener('keydown', onKeyDown);
+
+		return () => {
+			window.removeEventListener('keydown', onKeyDown);
+			cleanupObserver();
+		};
 	});
 
 	function go(idx: number) {
