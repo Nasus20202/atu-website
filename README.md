@@ -79,22 +79,3 @@ GitHub Actions (`.github/workflows/build-and-push.yaml`):
 - **On push to `main` only**: builds and publishes a multi-platform (`linux/amd64`, `linux/arm64`) Docker image to GHCR (`ghcr.io/nasus20202/atu-website`) with tags: `latest`, `sha-<hash>`, `YYYYMMDD-HHmmss`, and `2.<run_number>.0`
 
 Dependency updates are managed automatically by Renovate (auto-merges minor and patch).
-
-## Project Structure
-
-```
-src/
-├── app.html                   # HTML shell (lang="pl", fonts, meta tags)
-├── app.css                    # Global styles, Tailwind import, design tokens
-├── routes/
-│   ├── +layout.ts             # Enables full static prerendering
-│   ├── +layout.svelte         # Root layout
-│   ├── +page.svelte           # Single page — composes all sections
-│   └── +error.svelte          # Redirects to / on any routing error
-└── lib/
-    ├── sections.ts            # Scroll utilities + SECTION_IDS
-    ├── sections.test.ts       # Vitest unit tests
-    └── components/
-        ├── sections/          # Full-page content sections
-        └── ui/                # Reusable UI primitives
-```

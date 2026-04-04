@@ -23,7 +23,7 @@
 			<div class="mb-2">
 				<SectionLabel>Kompleksowe zarządzanie nieruchomością w naszej firmie to:</SectionLabel>
 			</div>
-			<div class="columns-2 gap-x-6 mb-5">
+			<div class="md:columns-2 gap-x-6 mb-5">
 				{#each ['prowadzenie spraw administracyjno-eksploatacyjnych', 'obsługa techniczna obiektu', 'obsługa finansowo-księgowa', 'sporządzanie planów i raportów'] as item (item)}
 					<p
 						class="text-white/72 text-sm leading-relaxed pl-3 relative py-0.5 before:content-['›'] before:absolute before:left-0 before:text-sky-300 before:font-bold break-inside-avoid"
@@ -36,7 +36,7 @@
 			<div class="mb-2">
 				<SectionLabel>Do obowiązków Zarządcy należeć będzie w szczególności:</SectionLabel>
 			</div>
-			<div class="columns-2 gap-x-6 mb-5">
+			<div class="md:columns-2 gap-x-6 mb-5">
 				{#each ['Prowadzenie ewidencji księgowej Wspólnoty Mieszkaniowej', 'Prowadzenie Księgi Obiektu Budowlanego oraz dokumentacji technicznej nieruchomości wspólnej wymaganej przez przepisy prawa budowlanego', 'Nadzór nad remontami i naprawami', 'Sporządzanie sprawozdań finansowych', 'Organizacja przeglądów technicznych nieruchomości i urządzeń budynku zgodnie z wymogami prawa budowlanego', 'Kontrola płynności finansowej nieruchomości', 'Rozliczanie mediów indywidualnych – woda, centralne ogrzewanie, ciepła woda', 'Zawieranie i kontrola prawidłowości realizacji umów podpisanych na obsługę nieruchomości', 'Prowadzenie i aktualizowanie wykazu Członków Wspólnoty oraz przypadających im udziałów w nieruchomości wspólnej', 'Pozasądowa windykacja należności z tytułu zarządu nieruchomością wspólną', 'Opracowywanie dokumentów wewnętrznych: uchwał, regulaminów, itp.', 'Przygotowywanie projektów planu gospodarczego', 'Zlecanie usuwania przyczyn i skutków awarii', 'Podejmowanie innych niezbędnych działań zmierzających do ochrony interesów majątkowych i niemajątkowych Wspólnoty', 'Weryfikowanie stanu prawnego i faktycznego nieruchomości', 'Utrzymanie w należytym porządku i czystości pomieszczeń i urządzeń budynku służących do wspólnego użytku właścicieli lokali oraz terenu przynależnego do nieruchomości', 'Zapewnienie dla nieruchomości dostaw energii elektrycznej, energii cieplnej, wody i gazu, odprowadzania ścieków i wywozu śmieci', 'Opłacanie podatków i innych opłat publicznoprawnych przypadających od nieruchomości wspólnej oraz ubezpieczenie Wspólnoty Mieszkaniowej', 'Zwoływanie i obsługa zebrań Wspólnoty Mieszkaniowej'] as item (item)}
 					<p
 						class="text-white/70 text-sm leading-relaxed pl-3 relative py-0.5 before:content-['›'] before:absolute before:left-0 before:text-sky-300 before:font-bold break-inside-avoid"
