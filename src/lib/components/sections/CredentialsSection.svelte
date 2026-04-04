@@ -39,14 +39,16 @@
 
 <section id="uprawnienia" class="snap-section">
 	<div class="inner-scroll max-w-4xl">
-		<div class="glass-card p-8 md:p-10 text-white">
-			<h2 class="font-heading text-[clamp(1.75rem,3vw,2.5rem)] font-bold mb-6">Uprawnienia</h2>
+		<div class="glass-card p-8 md:p-10">
+			<h2 class="font-heading text-[clamp(1.75rem,3vw,2.5rem)] font-bold mb-6 text-heading">
+				Uprawnienia
+			</h2>
 
 			<div class="flex flex-wrap gap-5 justify-center mb-7">
 				{#each credentials as cred (cred.src)}
 					<button
 						onclick={() => openLightbox(cred.src, cred.alt)}
-						class="group relative overflow-hidden rounded-xl border border-white/15 w-44 p-0 bg-transparent cursor-pointer hover:scale-105 transition-transform duration-300"
+						class="group relative overflow-hidden rounded-xl border border-border w-44 p-0 bg-transparent cursor-pointer hover:scale-105 transition-transform duration-300"
 					>
 						<img
 							src={cred.src}
@@ -65,15 +67,15 @@
 				{/each}
 			</div>
 
-			<div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-7 pt-5 border-t border-white/10">
-				<p class="text-white/75 text-base leading-relaxed">
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-7 pt-5 border-t border-border">
+				<p class="text-text-muted text-base leading-relaxed">
 					Firma ATU działa na podstawie wpisu do rejestru działalności gospodarczej nr ewid.
-					<strong class="text-white">8708 z dnia 30.01.1997</strong> wydanego przez Urząd Miasta Sopotu.
+					<strong class="text-text">8708 z dnia 30.01.1997</strong> wydanego przez Urząd Miasta Sopotu.
 				</p>
-				<p class="text-white/75 text-base leading-relaxed">
+				<p class="text-text-muted text-base leading-relaxed">
 					Moje kwalifikacje do wykonywania zawodu zarządcy nieruchomości potwierdza dyplom
 					ukończenia Wyższej Szkoły Gospodarowania Nieruchomościami w Warszawie, licencja zawodowa
-					Zarządcy Nieruchomości o numerze <strong class="text-white">25285</strong> wydana przez Ministra
+					Zarządcy Nieruchomości o numerze <strong class="text-text">25285</strong> wydana przez Ministra
 					Transportu, Budownictwa i Gospodarki Morskiej, certyfikat zawodu Administratora Nieruchomości
 					wydany przez Polskie Stowarzyszenie Licencjonowanych Zarządców Nieruchomości.
 				</p>

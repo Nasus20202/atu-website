@@ -13,7 +13,7 @@
 <button
 	{type}
 	{onclick}
-	class="px-5 py-2.5 border border-white/40 rounded text-white text-sm font-medium backdrop-blur-sm hover:bg-white/15 hover:border-white transition-all cursor-pointer bg-transparent"
+	class="px-5 py-2.5 border border-primary/60 rounded text-primary text-sm font-medium backdrop-blur-sm hover:bg-primary/10 hover:border-primary transition-all cursor-pointer bg-transparent"
 >
 	{@render children()}
 </button>

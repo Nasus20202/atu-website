@@ -61,14 +61,12 @@
 <dialog bind:this={dialog} onclick={onBackdrop} aria-label="Akty prawne" class="dialog-root">
 	<div class="dialog-panel {visible ? 'panel-in' : 'panel-out'}">
 		<!-- Header -->
-		<div
-			class="flex items-center justify-between px-7 py-5 border-b border-(--color-border) shrink-0"
-		>
+		<div class="flex items-center justify-between px-7 py-5 border-b border-border shrink-0">
 			<h2 class="font-heading text-2xl font-semibold text-heading m-0">Akty prawne</h2>
 			<button
 				onclick={close}
 				aria-label="Zamknij"
-				class="flex items-center justify-center w-9 h-9 rounded-full border border-(--color-border) text-text-muted hover:bg-bg-alt hover:text-text transition-colors cursor-pointer bg-transparent"
+				class="flex items-center justify-center w-9 h-9 rounded-full border border-border text-text-muted hover:bg-bg-alt hover:text-text transition-colors cursor-pointer bg-transparent"
 			>
 				<X size={18} />
 			</button>
@@ -76,8 +74,8 @@
 
 		<!-- List -->
 		<ul
-			class="overflow-y-auto px-6 pt-5 pb-6 flex flex-col gap-2 list-none m-0"
-			style="scrollbar-width: thin"
+			class="overflow-y-auto flex flex-col gap-2 list-none m-0"
+			style="padding: 1.5rem; scrollbar-width: thin"
 		>
 			{#each acts as act (act.href)}
 				<li>
@@ -85,7 +83,7 @@
 						href={act.href}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="flex items-start justify-between gap-3 px-4 py-3.5 border border-(--color-border) rounded-lg bg-bg-alt text-link text-sm leading-snug no-underline hover:border-primary hover:bg-(--color-surface) hover:translate-x-0.5 transition-all duration-200"
+						class="flex items-start justify-between gap-3 px-4 py-3.5 border border-border rounded-lg bg-bg-alt text-link text-sm leading-snug no-underline hover:border-primary hover:bg-(--color-surface) hover:translate-x-0.5 transition-all duration-200"
 					>
 						<span class="flex-1">{act.label}</span>
 						<ExternalLink size={14} class="shrink-0 mt-0.5 opacity-50" />
@@ -105,7 +103,7 @@
 		position: fixed;
 		inset: 0;
 		margin: auto;
-		width: min(680px, 88vw);
+		width: min(680px, calc(100vw - 2rem));
 		max-height: 90dvh;
 		transition: opacity 0.25s ease;
 	}

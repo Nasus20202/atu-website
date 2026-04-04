@@ -6,19 +6,21 @@
 
 <section id="omnie" class="snap-section">
 	<div class="inner-scroll">
-		<div class="glass-card p-8 md:p-10 text-white">
-			<h2 class="font-heading text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold mb-6">O mnie</h2>
+		<div class="glass-card p-8 md:p-10">
+			<h2 class="font-heading text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold mb-6 text-heading">
+				O mnie
+			</h2>
 
-			<div class="flex flex-col gap-3 mb-5 text-base leading-relaxed text-white/82">
+			<div class="flex flex-col gap-3 mb-5 text-base leading-relaxed text-text">
 				<p>
 					Szanowni Państwo, witam wszystkich serdecznie! Nazywam się Krzysztof Nasuta, jestem
 					absolwentem Politechniki Gdańskiej oraz Wyższej Szkoły Gospodarowania Nieruchomościami w
 					Warszawie. Posiadam licencję zawodową Zarządcy Nieruchomości o numerze
-					<strong class="text-white">25285</strong> wydaną przez Ministra Transportu, Budownictwa i Gospodarki
-					Morskiej.
+					<strong class="text-heading">25285</strong> wydaną przez Ministra Transportu, Budownictwa i
+					Gospodarki Morskiej.
 				</p>
 				<p>
-					Jestem właścicielem rodzinnej firmy <strong class="text-white"
+					Jestem właścicielem rodzinnej firmy <strong class="text-heading"
 						>ATU – Zarządzanie Wspólnotami Mieszkaniowymi –
 						<SectionLink href="mailto:zwm24@wp.pl">ZWM24@wp.pl</SectionLink></strong
 					>
@@ -38,21 +40,20 @@
 					Szczególną uwagę zwracam na jakość obsługi naszych Klientów. Stosujemy Standardy
 					Zarządzania opracowane przez Ogólnopolską Izbę Gospodarki Nieruchomościami.
 				</p>
-				<p class="text-white/60 text-xs mt-1">
-					Licencjonowany Zarządca Nieruchomości — <strong class="text-white/80"
-						>Krzysztof Nasuta</strong
+				<p class="text-text-muted text-xs mt-1">
+					Licencjonowany Zarządca Nieruchomości — <strong class="text-text">Krzysztof Nasuta</strong
 					>
 				</p>
 			</div>
 
-			<p class="text-center text-white/60 italic text-base mb-6">
+			<p class="text-center text-text-muted italic text-base mb-6">
 				Mieszkaj spokojnie! My zajmiemy się resztą!<br />
 				<span class="text-xs opacity-70"
 					>Moje kwalifikacje potwierdzone są Państwową Licencją Zarządcy Nieruchomości nr 25285</span
 				>
 			</p>
 
-			<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-white/10 items-start">
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-border items-start">
 				<div>
 					<div class="mb-3"><SectionLabel>Co mnie wyróżnia?</SectionLabel></div>
 					<ul class="flex flex-col gap-2">

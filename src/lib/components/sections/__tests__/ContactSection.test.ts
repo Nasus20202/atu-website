@@ -29,14 +29,20 @@ describe('ContactSection', () => {
 
 	it('renders the phone contact link', () => {
 		render(ContactSection);
-		const phoneLink = screen.getByRole('link', { name: 'Tel.: 601-64-01-46' });
+		const phoneLink = screen.getByRole('link', { name: '601-64-01-46' });
 		expect(phoneLink).toHaveAttribute('href', 'tel:+48601640146');
 	});
 
-	it('renders the email contact link', () => {
+	it('renders the primary email contact link', () => {
 		render(ContactSection);
-		const emailLinks = screen.getAllByRole('link', { name: /Email: zwm24@wp\.pl/ });
-		expect(emailLinks[0]).toHaveAttribute('href', 'mailto:zwm24@wp.pl');
+		const emailLink = screen.getByRole('link', { name: 'zwm24@wp.pl' });
+		expect(emailLink).toHaveAttribute('href', 'mailto:zwm24@wp.pl');
+	});
+
+	it('renders the secondary email contact link', () => {
+		render(ContactSection);
+		const emailLink = screen.getByRole('link', { name: 'atu@atu.nieruchomosci.pl' });
+		expect(emailLink).toHaveAttribute('href', 'mailto:atu@atu.nieruchomosci.pl');
 	});
 
 	it('renders the copyright footer with the current year', () => {

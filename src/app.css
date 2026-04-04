@@ -23,16 +23,16 @@
 
 	/* Text */
 	--color-text: #3a3a3a;
-	--color-text-muted: #6b7280;
+	--color-text-muted: #4b5563;
 	--color-text-on-dark: #f0f4f8;
 	--color-heading: #1e3a5f;
 
 	/* Links */
-	--color-link: #4aaaf5;
+	--color-link: #1d6fa8;
 	--color-link-hover: #d44;
 
 	/* Borders */
-	--color-border: #dde3ea;
+	--color-border: #8896a3;
 
 	/* Cards */
 	--color-card-bg: #f8fafd;
@@ -179,7 +179,7 @@ img {
 /* Frosted glass card */
 .glass-card {
 	width: 100%;
-	background: rgba(255, 255, 255, 0.18);
+	background: rgba(255, 255, 255, 0.7);
 	-webkit-backdrop-filter: blur(24px);
 	backdrop-filter: blur(24px);
 	border: 1px solid rgba(255, 255, 255, 0.22);
@@ -188,7 +188,7 @@ img {
 
 @media (prefers-color-scheme: dark) {
 	.glass-card {
-		background: rgba(0, 0, 0, 0.38);
+		background: rgba(0, 0, 0, 0.55);
 		border-color: rgba(255, 255, 255, 0.1);
 	}
 }

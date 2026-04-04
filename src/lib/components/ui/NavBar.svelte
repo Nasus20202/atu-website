@@ -92,7 +92,7 @@
 		<!-- Mobile toggler -->
 		<button
 			class="flex md:hidden items-center justify-center w-10 h-10 rounded border transition-colors cursor-pointer bg-transparent {scrolled
-				? 'border-(--color-border) text-text'
+				? 'border-border text-text'
 				: 'border-white/50 text-white'}"
 			aria-label={menuOpen ? 'Zamknij menu' : 'Otwórz menu'}
 			aria-expanded={menuOpen}
@@ -105,7 +105,7 @@
 	<!-- Mobile dropdown -->
 	{#if menuOpen}
 		<div
-			class="md:hidden absolute top-17 right-4 bg-white/95 dark:bg-[#0f1923]/97 border border-(--color-border) rounded-xl shadow-xl backdrop-blur-lg min-w-50 p-2 flex flex-col gap-0.5"
+			class="md:hidden absolute top-17 right-4 bg-white/95 dark:bg-[#0f1923]/97 border border-border rounded-xl shadow-xl backdrop-blur-lg min-w-50 p-2 flex flex-col gap-0.5"
 		>
 			{#each sections as s (s.id)}
 				<button

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { ArrowDown } from 'lucide-svelte';
-	import SectionLink from '../ui/SectionLink.svelte';
 </script>
 
 <section id="atu" class="snap-section">
@@ -15,13 +14,18 @@
 		>
 			Zarządzanie Wspólnotami Mieszkaniowymi
 		</p>
-		<SectionLink href="mailto:zwm24@wp.pl">zwm24@wp.pl</SectionLink>
+		<a
+			href="mailto:zwm24@wp.pl"
+			style="color: rgba(255,255,255,0.55)"
+			class="hover:text-white transition-colors drop-shadow">zwm24@wp.pl</a
+		>
 	</div>
 
 	<a
 		href="#zarzadzanie"
 		aria-label="Scroll down"
-		class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex items-center justify-center w-12 h-12 rounded-full bg-primary/70 text-white backdrop-blur-sm hover:bg-primary transition-colors animate-bounce"
+		class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors animate-bounce"
+		style="color: rgba(255,255,255,0.6)"
 	>
 		<ArrowDown size={22} />
 	</a>
