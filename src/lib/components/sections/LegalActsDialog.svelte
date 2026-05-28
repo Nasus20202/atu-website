@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { X, ExternalLink } from 'lucide-svelte';
+	import { X, ExternalLink } from '@lucide/svelte';
 
 	let dialog: HTMLDialogElement;
 	let visible = $state(false);

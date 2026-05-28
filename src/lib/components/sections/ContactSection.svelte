@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Building2, MapPin, Phone, Mail } from 'lucide-svelte';
+	import { Building2, MapPin, Phone, Mail } from '@lucide/svelte';
 
 	const items = [
 		{
