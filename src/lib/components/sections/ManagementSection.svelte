@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { House, BookOpen, CircleCheck, GraduationCap } from 'lucide-svelte';
+	import { House, BookOpen, CircleCheck, GraduationCap } from '@lucide/svelte';
 	import SectionLabel from '../ui/SectionLabel.svelte';
 	import BulletItem from '../ui/BulletItem.svelte';
 	import GhostButton from '../ui/GhostButton.svelte';

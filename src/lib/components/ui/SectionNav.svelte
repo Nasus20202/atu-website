@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { ChevronUp, ChevronDown } from 'lucide-svelte';
+	import { ChevronUp, ChevronDown } from '@lucide/svelte';
 	import { SECTION_IDS, scrollToSection, createSectionObserver } from '$lib/sections';
 
 	let activeIndex = $state(0);

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { X } from 'lucide-svelte';
+	import { X } from '@lucide/svelte';
 	import GhostButton from '../ui/GhostButton.svelte';
 
 	let { onLegalActs }: { onLegalActs?: () => void } = $props();

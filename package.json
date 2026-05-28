@@ -24,6 +24,7 @@
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
+		"@lucide/svelte": "^1.16.0",
 		"@playwright/test": "^1.59.1",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.56.1",
@@ -40,7 +41,6 @@
 		"eslint-plugin-svelte": "^3.17.0",
 		"globals": "^17.4.0",
 		"jsdom": "^29.0.1",
-		"lucide-svelte": "^1.0.1",
 		"prettier": "^3.8.1",
 		"prettier-plugin-svelte": "^4.0.0",
 		"svelte": "^5.55.1",
