@@ -149,14 +149,14 @@ The `<html>` element SHALL have `lang="pl"`. Each page SHALL have a `<title>` an
 
 ---
 
-### Requirement: Icon library — lucide-svelte
+### Requirement: Icon library — @lucide/svelte
 
-The application SHALL use `lucide-svelte` for all icons. No Font Awesome files SHALL be present in the repository.
+The application SHALL use `@lucide/svelte` for all icons. No Font Awesome files SHALL be present in the repository.
 
-#### Scenario: Icons render via lucide-svelte
+#### Scenario: Icons render via @lucide/svelte
 
 - **WHEN** the management section is rendered
-- **THEN** the pillar icons are rendered as SVG elements from lucide-svelte
+- **THEN** the pillar icons are rendered as SVG elements from @lucide/svelte
 
 ---
 
