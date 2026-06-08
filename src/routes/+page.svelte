@@ -14,7 +14,7 @@
 </script>
 
 <svelte:head>
-	<title>ATU Nieruchomości</title>
+	<title>ATU Nieruchomości - Zarządzanie Wspólnotami Mieszkaniowymi</title>
 </svelte:head>
 
 <BackgroundLayer />
