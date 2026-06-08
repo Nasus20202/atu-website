@@ -122,7 +122,7 @@ The application SHALL support `prefers-color-scheme: dark` via a `@media (prefer
 
 ### Requirement: Typography
 
-The application SHALL use two Google Fonts: **Raleway** (weights 300, 400, 600, 700) for headings and **Inter** (weights 400, 500, 600) for body text. Both SHALL be loaded via `<link>` tags in `src/app.html` with `rel="preconnect"` for performance.
+The application SHALL use two fonts: **Raleway** (weights 300, 400, 600, 700) for headings and **Inter** (weights 400, 500, 600) for body text. Both SHALL be installed locally via `@fontsource` packages and imported at the top of `src/app.css` for performance and privacy.
 
 Global typography defaults in `app.css`:
 
