@@ -3,9 +3,9 @@ import { describe, it, expect } from 'vitest';
 import ContactSection from '../ContactSection.svelte';
 
 describe('ContactSection', () => {
-	it('renders the section with id="contact"', () => {
+	it('renders the section with id="kontakt"', () => {
 		const { container } = render(ContactSection);
-		expect(container.querySelector('#contact')).toBeInTheDocument();
+		expect(container.querySelector('#kontakt')).toBeInTheDocument();
 	});
 
 	it('renders the "Kontakt" heading', () => {

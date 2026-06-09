@@ -14,7 +14,7 @@ export const SECTION_IDS = [
 	'omnie',
 	'oferta',
 	'uprawnienia',
-	'contact'
+	'kontakt'
 ] as const;
 
 export type SectionId = (typeof SECTION_IDS)[number];

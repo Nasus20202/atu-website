@@ -1,6 +1,6 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
-async function openDialog(page: import('@playwright/test').Page): Promise<void> {
+async function openDialog(page: Page): Promise<void> {
 	await page.evaluate((sel) => {
 		const el = document.querySelector(sel);
 		if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' });

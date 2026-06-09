@@ -1,11 +1,11 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
-async function getHash(page: import('@playwright/test').Page): Promise<string> {
+async function getHash(page: Page): Promise<string> {
 	return page.evaluate(() => window.location.hash);
 }
 
 async function expectHash(
-	page: import('@playwright/test').Page,
+	page: Page,
 	expectedHash: string,
 	timeout = 2000
 ): Promise<void> {
@@ -35,8 +35,8 @@ test.describe('Navbar — desktop', () => {
 
 	test('clicking a nav link scrolls to the correct section and updates hash', async ({ page }) => {
 		await page.click('nav ul button:has-text("Kontakt")');
-		await expectHash(page, '#contact');
-		await expect(page.locator('#contact')).toBeInViewport();
+		await expectHash(page, '#kontakt');
+		await expect(page.locator('#kontakt')).toBeInViewport();
 	});
 
 	test('brand button navigates to #atu', async ({ page }) => {
@@ -99,6 +99,6 @@ test.describe('Navbar — mobile', () => {
 	test('clicking a nav link navigates to the correct section', async ({ page }) => {
 		await page.click('button[aria-label="Otwórz menu"]');
 		await page.click('nav div.absolute button:has-text("Kontakt")');
-		await expectHash(page, '#contact');
+		await expectHash(page, '#kontakt');
 	});
 });

@@ -16,7 +16,7 @@ describe('SectionLink', () => {
 	});
 
 	it('does not add target="_blank" by default', () => {
-		render(SectionLinkTest, { props: { href: '#contact', label: 'Contact' } });
+		render(SectionLinkTest, { props: { href: '#kontakt', label: 'Kontakt' } });
 		const link = screen.getByRole('link');
 		expect(link).not.toHaveAttribute('target', '_blank');
 	});

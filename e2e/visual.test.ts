@@ -40,10 +40,10 @@ test.describe('Visual regression', () => {
 		await expect(page).toHaveScreenshot('uprawnienia.png');
 	});
 
-	test('Contact section (#contact)', async ({ page }) => {
-		await scrollToSection(page, '#contact');
-		await expect(page).toHaveScreenshot('contact.png', {
-			mask: [page.locator('#contact p.text-center')]
+	test('Contact section (#kontakt)', async ({ page }) => {
+		await scrollToSection(page, '#kontakt');
+		await expect(page).toHaveScreenshot('kontakt.png', {
+			mask: [page.locator('#kontakt p.text-center')]
 		});
 	});
 
@@ -92,10 +92,10 @@ test.describe('Visual regression — dark mode', () => {
 		await expect(page).toHaveScreenshot('dark-uprawnienia.png');
 	});
 
-	test('Contact section — dark (#contact)', async ({ page }) => {
-		await scrollToSection(page, '#contact');
-		await expect(page).toHaveScreenshot('dark-contact.png', {
-			mask: [page.locator('#contact p.text-center')]
+	test('Contact section — dark (#kontakt)', async ({ page }) => {
+		await scrollToSection(page, '#kontakt');
+		await expect(page).toHaveScreenshot('dark-kontakt.png', {
+			mask: [page.locator('#kontakt p.text-center')]
 		});
 	});
 

@@ -1,11 +1,11 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
-async function getHash(page: import('@playwright/test').Page): Promise<string> {
+async function getHash(page: Page): Promise<string> {
 	return page.evaluate(() => window.location.hash);
 }
 
 async function expectHash(
-	page: import('@playwright/test').Page,
+	page: Page,
 	expectedHash: string,
 	timeout = 2000
 ): Promise<void> {
@@ -26,7 +26,7 @@ test.describe('SectionNav arrows', () => {
 
 	test('Next section arrow is disabled on the last section', async ({ page }) => {
 		await page.keyboard.press('End');
-		await expectHash(page, '#contact');
+		await expectHash(page, '#kontakt');
 		await expect(page.locator('button[aria-label="Next section"]')).toBeDisabled();
 	});
 

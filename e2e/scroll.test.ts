@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
 /**
  * Scroll behaviour tests.
@@ -12,9 +12,9 @@ import { test, expect } from '@playwright/test';
  * than synthetic `scrollTop` assignments.
  */
 
-const SECTIONS = ['#atu', '#zarzadzanie', '#omnie', '#oferta', '#uprawnienia', '#contact'] as const;
+const SECTIONS = ['#atu', '#zarzadzanie', '#omnie', '#oferta', '#uprawnienia', '#kontakt'] as const;
 
-async function getHash(page: import('@playwright/test').Page): Promise<string> {
+async function getHash(page: Page): Promise<string> {
 	return page.evaluate(() => window.location.hash);
 }
 
@@ -23,7 +23,7 @@ async function getHash(page: import('@playwright/test').Page): Promise<string> {
  * Uses toPass() instead of a fixed timeout to avoid flakiness on slow CI.
  */
 async function pressAndExpectHash(
-	page: import('@playwright/test').Page,
+	page: Page,
 	key: string,
 	expectedHash: string,
 	timeout = 2000
@@ -47,13 +47,13 @@ test.describe('Keyboard scroll navigation', () => {
 	});
 
 	test('ArrowDown does nothing on the last section', async ({ page }) => {
-		await pressAndExpectHash(page, 'End', '#contact');
+		await pressAndExpectHash(page, 'End', '#kontakt');
 		const hashBefore = await getHash(page);
 		await pressAndExpectHash(page, 'ArrowDown', hashBefore);
 	});
 
 	test('ArrowUp retreats one section at a time back to the first', async ({ page }) => {
-		await pressAndExpectHash(page, 'End', '#contact');
+		await pressAndExpectHash(page, 'End', '#kontakt');
 		for (let i = SECTIONS.length - 2; i >= 0; i--) {
 			await pressAndExpectHash(page, 'ArrowUp', SECTIONS[i]);
 		}
@@ -73,11 +73,11 @@ test.describe('Keyboard scroll navigation', () => {
 	});
 
 	test('End key jumps directly to the last section', async ({ page }) => {
-		await pressAndExpectHash(page, 'End', '#contact');
+		await pressAndExpectHash(page, 'End', '#kontakt');
 	});
 
 	test('Home key jumps directly to the first section', async ({ page }) => {
-		await pressAndExpectHash(page, 'End', '#contact');
+		await pressAndExpectHash(page, 'End', '#kontakt');
 		await pressAndExpectHash(page, 'Home', '#atu');
 	});
 

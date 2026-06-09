@@ -15,7 +15,7 @@
 		{ id: 'omnie', label: 'O mnie' },
 		{ id: 'oferta', label: 'Oferta' },
 		{ id: 'uprawnienia', label: 'Uprawnienia i akty' },
-		{ id: 'contact', label: 'Kontakt' }
+		{ id: 'kontakt', label: 'Kontakt' }
 	];
 
 	onMount(() => {

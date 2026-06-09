@@ -11,7 +11,7 @@ const observerCallbackRef = vi.hoisted(() => ({
 }));
 
 vi.mock('$lib/sections', () => ({
-	SECTION_IDS: ['atu', 'zarzadzanie', 'omnie', 'oferta', 'uprawnienia', 'contact'],
+	SECTION_IDS: ['atu', 'zarzadzanie', 'omnie', 'oferta', 'uprawnienia', 'kontakt'],
 	scrollToSection: mockScrollToSection,
 	createSectionObserver: mockCreateSectionObserver.mockImplementation(
 		(onActive: (_id: string) => void) => {
@@ -163,21 +163,21 @@ describe('SectionNav', () => {
 
 	it('does not navigate on ArrowRight when on last section', async () => {
 		render(SectionNav);
-		setActiveSection('contact');
+		setActiveSection('kontakt');
 		await userEvent.keyboard('{ArrowRight}');
 		expect(mockScrollToSection).not.toHaveBeenCalled();
 	});
 
 	it('does not navigate on ArrowDown when on last section', async () => {
 		render(SectionNav);
-		setActiveSection('contact');
+		setActiveSection('kontakt');
 		await userEvent.keyboard('{ArrowDown}');
 		expect(mockScrollToSection).not.toHaveBeenCalled();
 	});
 
 	it('does not navigate on Enter when on last section', async () => {
 		render(SectionNav);
-		setActiveSection('contact');
+		setActiveSection('kontakt');
 		await userEvent.keyboard('{Enter}');
 		expect(mockScrollToSection).not.toHaveBeenCalled();
 	});
@@ -192,7 +192,7 @@ describe('SectionNav', () => {
 	it('calls scrollToSection with last section id on End key', async () => {
 		render(SectionNav);
 		await userEvent.keyboard('{End}');
-		expect(mockScrollToSection).toHaveBeenLastCalledWith('contact');
+		expect(mockScrollToSection).toHaveBeenLastCalledWith('kontakt');
 	});
 
 	it('clicking next from middle section scrolls to the next section id', async () => {
@@ -208,7 +208,7 @@ describe('SectionNav', () => {
 		const upBtn = screen.getByRole('button', { name: 'Previous section' });
 		const downBtn = screen.getByRole('button', { name: 'Next section' });
 
-		setActiveSection('contact');
+		setActiveSection('kontakt');
 		await waitFor(() => {
 			expect(upBtn).not.toBeDisabled();
 			expect(downBtn).toBeDisabled();
@@ -243,7 +243,7 @@ describe('SectionNav', () => {
 
 	it('does not scroll when clicking disabled "Next section" on last section', async () => {
 		render(SectionNav);
-		setActiveSection('contact');
+		setActiveSection('kontakt');
 		const downBtn = screen.getByRole('button', { name: 'Next section' });
 		await userEvent.click(downBtn);
 		expect(mockScrollToSection).not.toHaveBeenCalled();

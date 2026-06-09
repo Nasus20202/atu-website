@@ -4,7 +4,7 @@ import BackgroundLayer from '../BackgroundLayer.svelte';
 
 // Mock createSectionObserver since it needs real DOM sections
 vi.mock('$lib/sections', () => ({
-	SECTION_IDS: ['atu', 'zarzadzanie', 'omnie', 'oferta', 'uprawnienia', 'contact'],
+	SECTION_IDS: ['atu', 'zarzadzanie', 'omnie', 'oferta', 'uprawnienia', 'kontakt'],
 	createSectionObserver: vi.fn(() => vi.fn()) // returns a cleanup fn
 }));
 

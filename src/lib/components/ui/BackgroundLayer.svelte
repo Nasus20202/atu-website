@@ -9,7 +9,7 @@
 		{ id: 'omnie', src: '/img/town-hall.webp' },
 		{ id: 'oferta', src: '/img/fountain.webp' },
 		{ id: 'uprawnienia', src: '/img/waterfront.webp' },
-		{ id: 'contact', src: '/img/night.webp' }
+		{ id: 'kontakt', src: '/img/night.webp' }
 	];
 
 	const SECTION_TO_LAYER: Record<string, string> = {
@@ -18,7 +18,7 @@
 		omnie: 'omnie',
 		oferta: 'oferta',
 		uprawnienia: 'uprawnienia',
-		contact: 'contact'
+		kontakt: 'kontakt'
 	};
 
 	let activeLayer = $state('hero');

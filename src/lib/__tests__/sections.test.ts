@@ -9,7 +9,7 @@ describe('SECTION_IDS', () => {
 			'omnie',
 			'oferta',
 			'uprawnienia',
-			'contact'
+			'kontakt'
 		]);
 	});
 

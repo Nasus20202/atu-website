@@ -30,7 +30,7 @@
 	];
 </script>
 
-<section id="contact" class="snap-section">
+<section id="kontakt" class="snap-section">
 	<div class="inner-scroll max-w-2xl">
 		<div class="glass-card p-8 md:p-10">
 			<h2 class="font-heading text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold mb-7 text-heading">
