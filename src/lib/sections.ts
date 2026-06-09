@@ -3,6 +3,7 @@
  *
  * - SECTION_IDS: canonical ordered list of all snap-section ids
  * - scrollToSection: smooth-scrolls the snap-root to the given section id
+ * - updateSectionPath: replaces the URL pathname with /<section-id>
  * - createSectionObserver: sets up a single IntersectionObserver watching all
  *   sections and calls onActive(id) whenever one becomes >= 50% visible.
  *   Returns a cleanup function (disconnect).
@@ -18,6 +19,21 @@ export const SECTION_IDS = [
 ] as const;
 
 export type SectionId = (typeof SECTION_IDS)[number];
+
+export function updateSectionPath(id: string): void {
+	const path = id === 'atu' ? '/' : `/${id}`;
+	if (window.location.pathname !== path) {
+		history.replaceState(null, '', path);
+	}
+}
+
+export function getSectionPath(id: string): string {
+	return `/${id}`;
+}
+
+export function isValidSection(id: string): id is SectionId {
+	return (SECTION_IDS as readonly string[]).includes(id);
+}
 
 export function scrollToSection(id: string): void {
 	const root = document.querySelector('.snap-root');

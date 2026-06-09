@@ -1,16 +1,16 @@
 import { test, expect, type Page } from '@playwright/test';
 
-async function getHash(page: Page): Promise<string> {
-	return page.evaluate(() => window.location.hash);
+async function getPath(page: Page): Promise<string> {
+	return page.evaluate(() => window.location.pathname);
 }
 
-async function expectHash(
+async function expectPath(
 	page: Page,
-	expectedHash: string,
+	expectedPath: string,
 	timeout = 2000
 ): Promise<void> {
 	await expect(async () => {
-		expect(await getHash(page)).toBe(expectedHash);
+		expect(await getPath(page)).toBe(expectedPath);
 	}).toPass({ timeout });
 }
 
@@ -33,24 +33,24 @@ test.describe('Navbar — desktop', () => {
 		await expect(nav).toHaveClass(/scrolled-nav/, { timeout: 2000 });
 	});
 
-	test('clicking a nav link scrolls to the correct section and updates hash', async ({ page }) => {
+	test('clicking a nav link scrolls to the correct section and updates path', async ({ page }) => {
 		await page.click('nav ul button:has-text("Kontakt")');
-		await expectHash(page, '#kontakt');
+		await expectPath(page, '/kontakt');
 		await expect(page.locator('#kontakt')).toBeInViewport();
 	});
 
-	test('brand button navigates to #atu', async ({ page }) => {
+	test('brand button navigates to /', async ({ page }) => {
 		await page.keyboard.press('ArrowDown');
-		await expectHash(page, '#zarzadzanie');
+		await expectPath(page, '/zarzadzanie');
 		await page.click('nav button:has-text("ATU Nieruchomości")');
-		await expectHash(page, '#atu');
+		await expectPath(page, '/');
 	});
 
 	test('active nav button is highlighted when on that section', async ({ page }) => {
 		await page.keyboard.press('ArrowDown');
-		await expectHash(page, '#zarzadzanie');
+		await expectPath(page, '/zarzadzanie');
 		await page.keyboard.press('ArrowDown');
-		await expectHash(page, '#omnie');
+		await expectPath(page, '/omnie');
 		const omnieBtn = page.locator('nav ul button:has-text("O mnie")');
 		const atuBtn = page.locator('nav ul button:has-text("ATU")');
 		await expect(omnieBtn).toHaveClass(/bg-bg-alt/);
@@ -59,12 +59,12 @@ test.describe('Navbar — desktop', () => {
 
 	test('active nav button updates as user navigates between sections', async ({ page }) => {
 		const steps: Array<[string, string]> = [
-			['Zarządzanie', '#zarzadzanie'],
-			['O mnie', '#omnie']
+			['Zarządzanie', '/zarzadzanie'],
+			['O mnie', '/omnie']
 		];
-		for (const [label, hash] of steps) {
+		for (const [label, path] of steps) {
 			await page.keyboard.press('ArrowDown');
-			await expectHash(page, hash);
+			await expectPath(page, path);
 			// After first ArrowDown the nav is scrolled — active class is bg-bg-alt
 			await expect(page.locator(`nav ul button:has-text("${label}")`)).toHaveClass(/bg-bg-alt/);
 		}
@@ -99,6 +99,6 @@ test.describe('Navbar — mobile', () => {
 	test('clicking a nav link navigates to the correct section', async ({ page }) => {
 		await page.click('button[aria-label="Otwórz menu"]');
 		await page.click('nav div.absolute button:has-text("Kontakt")');
-		await expectHash(page, '#kontakt');
+		await expectPath(page, '/kontakt');
 	});
 });

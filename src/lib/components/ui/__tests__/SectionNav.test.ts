@@ -18,7 +18,8 @@ vi.mock('$lib/sections', () => ({
 			observerCallbackRef.current = onActive;
 			return mockCleanupObserver;
 		}
-	)
+	),
+	updateSectionPath: vi.fn()
 }));
 
 function setActiveSection(id: string) {

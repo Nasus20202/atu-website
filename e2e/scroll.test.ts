@@ -12,25 +12,25 @@ import { test, expect, type Page } from '@playwright/test';
  * than synthetic `scrollTop` assignments.
  */
 
-const SECTIONS = ['#atu', '#zarzadzanie', '#omnie', '#oferta', '#uprawnienia', '#kontakt'] as const;
+const SECTIONS = ['/', '/zarzadzanie', '/omnie', '/oferta', '/uprawnienia', '/kontakt'] as const;
 
-async function getHash(page: Page): Promise<string> {
-	return page.evaluate(() => window.location.hash);
+async function getPath(page: Page): Promise<string> {
+	return page.evaluate(() => window.location.pathname);
 }
 
 /**
- * Press a key and poll until the URL hash equals the expected value.
+ * Press a key and poll until the URL path equals the expected value.
  * Uses toPass() instead of a fixed timeout to avoid flakiness on slow CI.
  */
-async function pressAndExpectHash(
+async function pressAndExpectPath(
 	page: Page,
 	key: string,
-	expectedHash: string,
+	expectedPath: string,
 	timeout = 2000
 ): Promise<void> {
 	await page.keyboard.press(key);
 	await expect(async () => {
-		expect(await getHash(page)).toBe(expectedHash);
+		expect(await getPath(page)).toBe(expectedPath);
 	}).toPass({ timeout });
 }
 
@@ -42,52 +42,52 @@ test.describe('Keyboard scroll navigation', () => {
 
 	test('ArrowDown advances one section at a time through all sections', async ({ page }) => {
 		for (let i = 1; i < SECTIONS.length; i++) {
-			await pressAndExpectHash(page, 'ArrowDown', SECTIONS[i]);
+			await pressAndExpectPath(page, 'ArrowDown', SECTIONS[i]);
 		}
 	});
 
 	test('ArrowDown does nothing on the last section', async ({ page }) => {
-		await pressAndExpectHash(page, 'End', '#kontakt');
-		const hashBefore = await getHash(page);
-		await pressAndExpectHash(page, 'ArrowDown', hashBefore);
+		await pressAndExpectPath(page, 'End', '/kontakt');
+		const pathBefore = await getPath(page);
+		await pressAndExpectPath(page, 'ArrowDown', pathBefore);
 	});
 
 	test('ArrowUp retreats one section at a time back to the first', async ({ page }) => {
-		await pressAndExpectHash(page, 'End', '#kontakt');
+		await pressAndExpectPath(page, 'End', '/kontakt');
 		for (let i = SECTIONS.length - 2; i >= 0; i--) {
-			await pressAndExpectHash(page, 'ArrowUp', SECTIONS[i]);
+			await pressAndExpectPath(page, 'ArrowUp', SECTIONS[i]);
 		}
 	});
 
 	test('ArrowUp does nothing on the first section', async ({ page }) => {
-		await pressAndExpectHash(page, 'ArrowUp', '#atu');
+		await pressAndExpectPath(page, 'ArrowUp', '/');
 	});
 
 	test('PageDown advances one section', async ({ page }) => {
-		await pressAndExpectHash(page, 'PageDown', '#zarzadzanie');
+		await pressAndExpectPath(page, 'PageDown', '/zarzadzanie');
 	});
 
 	test('PageUp retreats one section', async ({ page }) => {
-		await pressAndExpectHash(page, 'ArrowDown', '#zarzadzanie');
-		await pressAndExpectHash(page, 'PageUp', '#atu');
+		await pressAndExpectPath(page, 'ArrowDown', '/zarzadzanie');
+		await pressAndExpectPath(page, 'PageUp', '/');
 	});
 
 	test('End key jumps directly to the last section', async ({ page }) => {
-		await pressAndExpectHash(page, 'End', '#kontakt');
+		await pressAndExpectPath(page, 'End', '/kontakt');
 	});
 
 	test('Home key jumps directly to the first section', async ({ page }) => {
-		await pressAndExpectHash(page, 'End', '#kontakt');
-		await pressAndExpectHash(page, 'Home', '#atu');
+		await pressAndExpectPath(page, 'End', '/kontakt');
+		await pressAndExpectPath(page, 'Home', '/');
 	});
 
 	test('ArrowLeft retreats one section (alias for ArrowUp)', async ({ page }) => {
-		await pressAndExpectHash(page, 'ArrowDown', '#zarzadzanie');
-		await pressAndExpectHash(page, 'ArrowLeft', '#atu');
+		await pressAndExpectPath(page, 'ArrowDown', '/zarzadzanie');
+		await pressAndExpectPath(page, 'ArrowLeft', '/');
 	});
 
 	test('ArrowRight advances one section (alias for ArrowDown)', async ({ page }) => {
-		await pressAndExpectHash(page, 'ArrowRight', '#zarzadzanie');
+		await pressAndExpectPath(page, 'ArrowRight', '/zarzadzanie');
 	});
 });
 
@@ -97,47 +97,55 @@ test.describe('Hero scroll-down arrow', () => {
 		await page.locator('#atu').waitFor({ state: 'visible' });
 	});
 
-	test('clicking the scroll-down arrow navigates to #zarzadzanie', async ({ page }) => {
+	test('clicking the scroll-down arrow navigates to /zarzadzanie', async ({ page }) => {
 		// force:true because animate-bounce keeps the element in motion
-		await page.click('a[aria-label="Scroll down"]', { force: true });
+		await page.click('button[aria-label="Scroll down"]', { force: true });
 		await expect(async () => {
-			expect(await getHash(page)).toBe('#zarzadzanie');
+			expect(await getPath(page)).toBe('/zarzadzanie');
 		}).toPass({ timeout: 2000 });
 	});
 
 	test('scroll-down arrow is not visible after leaving the hero section', async ({ page }) => {
-		await pressAndExpectHash(page, 'ArrowDown', '#zarzadzanie');
+		await pressAndExpectPath(page, 'ArrowDown', '/zarzadzanie');
 		// The arrow lives inside #atu — after scrolling away it should be off-screen
-		await expect(page.locator('a[aria-label="Scroll down"]')).not.toBeInViewport();
+		await expect(page.locator('button[aria-label="Scroll down"]')).not.toBeInViewport();
 	});
 });
 
-test.describe('Hash updates on scroll', () => {
+test.describe('Path updates on scroll', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto('/');
 		await page.locator('#atu').waitFor({ state: 'visible' });
 	});
 
-	test('URL hash reflects the active section as user navigates through all sections', async ({
+	test('URL path reflects the active section as user navigates through all sections', async ({
 		page
 	}) => {
 		for (let i = 1; i < SECTIONS.length; i++) {
-			await pressAndExpectHash(page, 'ArrowDown', SECTIONS[i]);
+			await pressAndExpectPath(page, 'ArrowDown', SECTIONS[i]);
 		}
 	});
 
 	test('each section is fully in viewport when navigated to by keyboard', async ({ page }) => {
 		for (let i = 1; i < SECTIONS.length; i++) {
-			await pressAndExpectHash(page, 'ArrowDown', SECTIONS[i]);
-			await expect(page.locator(SECTIONS[i])).toBeInViewport();
+			await pressAndExpectPath(page, 'ArrowDown', SECTIONS[i]);
+			// Wait for scroll to settle, then verify snap-root scrollTop matches section offsetTop
+			await expect(async () => {
+				const { rootScroll, sectionOffset } = await page.evaluate((id) => {
+					const r = document.querySelector('.snap-root') as HTMLElement;
+					const s = document.getElementById(id) as HTMLElement;
+					return { rootScroll: r.scrollTop, sectionOffset: s.offsetTop };
+				}, SECTIONS[i].slice(1));
+				expect(Math.abs(rootScroll - sectionOffset)).toBeLessThanOrEqual(4);
+			}).toPass({ timeout: 3000 });
 		}
 	});
 
-	test('navigating via dot indicators updates the hash', async ({ page }) => {
-		// Click the 4th dot (index 3 → #oferta)
+	test('navigating via dot indicators updates the path', async ({ page }) => {
+		// Click the 4th dot (index 3 → /oferta)
 		await page.click('button[aria-label="Go to section 4"]');
 		await expect(async () => {
-			expect(await getHash(page)).toBe('#oferta');
+			expect(await getPath(page)).toBe('/oferta');
 		}).toPass({ timeout: 2000 });
 	});
 });
@@ -153,25 +161,25 @@ test.describe('Mouse wheel scroll', () => {
 	test('scrolling down advances to the next section', async ({ page }) => {
 		await page.mouse.wheel(0, 600);
 		await expect(async () => {
-			expect(await getHash(page)).toBe('#zarzadzanie');
+			expect(await getPath(page)).toBe('/zarzadzanie');
 		}).toPass({ timeout: 2000 });
 	});
 
 	test('scrolling up retreats to the previous section', async ({ page }) => {
 		await page.mouse.wheel(0, 600);
 		await expect(async () => {
-			expect(await getHash(page)).toBe('#zarzadzanie');
+			expect(await getPath(page)).toBe('/zarzadzanie');
 		}).toPass({ timeout: 2000 });
 		await page.mouse.wheel(0, -600);
 		await expect(async () => {
-			expect(await getHash(page)).toBe('#atu');
+			expect(await getPath(page)).toBe('/');
 		}).toPass({ timeout: 2000 });
 	});
 
 	test('scrolled section is fully in viewport', async ({ page }) => {
 		await page.mouse.wheel(0, 600);
 		await expect(async () => {
-			expect(await getHash(page)).toBe('#zarzadzanie');
+			expect(await getPath(page)).toBe('/zarzadzanie');
 		}).toPass({ timeout: 2000 });
 		await expect(page.locator('#zarzadzanie')).toBeInViewport();
 	});

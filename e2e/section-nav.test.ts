@@ -1,16 +1,16 @@
 import { test, expect, type Page } from '@playwright/test';
 
-async function getHash(page: Page): Promise<string> {
-	return page.evaluate(() => window.location.hash);
+async function getPath(page: Page): Promise<string> {
+	return page.evaluate(() => window.location.pathname);
 }
 
-async function expectHash(
+async function expectPath(
 	page: Page,
-	expectedHash: string,
+	expectedPath: string,
 	timeout = 2000
 ): Promise<void> {
 	await expect(async () => {
-		expect(await getHash(page)).toBe(expectedHash);
+		expect(await getPath(page)).toBe(expectedPath);
 	}).toPass({ timeout });
 }
 
@@ -26,20 +26,20 @@ test.describe('SectionNav arrows', () => {
 
 	test('Next section arrow is disabled on the last section', async ({ page }) => {
 		await page.keyboard.press('End');
-		await expectHash(page, '#kontakt');
+		await expectPath(page, '/kontakt');
 		await expect(page.locator('button[aria-label="Next section"]')).toBeDisabled();
 	});
 
-	test('Next section arrow advances from #atu to #zarzadzanie', async ({ page }) => {
+	test('Next section arrow advances from #atu to /zarzadzanie', async ({ page }) => {
 		await page.click('button[aria-label="Next section"]');
-		await expectHash(page, '#zarzadzanie');
+		await expectPath(page, '/zarzadzanie');
 	});
 
-	test('Previous section arrow retreats from #zarzadzanie to #atu', async ({ page }) => {
+	test('Previous section arrow retreats from /zarzadzanie to /', async ({ page }) => {
 		await page.keyboard.press('ArrowDown');
-		await expectHash(page, '#zarzadzanie');
+		await expectPath(page, '/zarzadzanie');
 		await page.click('button[aria-label="Previous section"]');
-		await expectHash(page, '#atu');
+		await expectPath(page, '/');
 	});
 
 	test('dot indicator for active section is taller than inactive dots', async ({ page }) => {
@@ -52,8 +52,14 @@ test.describe('SectionNav arrows', () => {
 	});
 
 	test('clicking a dot navigates to that section', async ({ page }) => {
-		// Click dot for section 3 (index 2 → #omnie)
+		// Click dot for section 3 (index 2 → /omnie)
 		await page.click('button[aria-label="Go to section 3"]');
-		await expectHash(page, '#omnie');
+		await expectPath(page, '/omnie');
+	});
+
+	test('directly loading /kontakt scrolls to the kontakt section', async ({ page }) => {
+		await page.goto('/kontakt');
+		await expect(page.locator('#kontakt')).toBeInViewport();
+		await expectPath(page, '/kontakt');
 	});
 });

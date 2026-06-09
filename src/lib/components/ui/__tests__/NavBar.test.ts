@@ -8,7 +8,8 @@ const mockScrollToSection = vi.hoisted(() => vi.fn());
 vi.mock('$lib/sections', () => ({
 	SECTION_IDS: ['atu', 'zarzadzanie', 'omnie', 'oferta', 'uprawnienia', 'kontakt'],
 	scrollToSection: mockScrollToSection,
-	createSectionObserver: vi.fn(() => vi.fn())
+	createSectionObserver: vi.fn(() => vi.fn()),
+	updateSectionPath: vi.fn()
 }));
 
 describe('NavBar', () => {

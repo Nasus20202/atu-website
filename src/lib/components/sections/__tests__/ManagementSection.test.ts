@@ -34,9 +34,8 @@ describe('ManagementSection', () => {
 		expect(screen.getByText('Obsługa techniczna nieruchomości')).toBeInTheDocument();
 	});
 
-	it('renders a link to the full offer section', () => {
+	it('renders a button to navigate to the full offer section', () => {
 		render(ManagementSection);
-		const link = screen.getByRole('link', { name: 'Zobacz pełną ofertę' });
-		expect(link).toHaveAttribute('href', '#oferta');
+		expect(screen.getByRole('button', { name: 'Zobacz pełną ofertę' })).toBeInTheDocument();
 	});
 });

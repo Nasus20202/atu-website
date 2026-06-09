@@ -1,13 +1,26 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Menu, X } from '@lucide/svelte';
-	import { scrollToSection, createSectionObserver } from '$lib/sections';
+	import { scrollToSection, createSectionObserver, updateSectionPath } from '$lib/sections';
 
 	let { onLegalActs: _onLegalActs }: { onLegalActs?: () => void } = $props();
 
 	let scrolled = $state(false);
 	let menuOpen = $state(false);
 	let activeId = $state<string>('atu');
+
+	const titleBySection: Record<string, string> = {
+		atu: 'ATU Nieruchomości - Zarządzanie Wspólnotami Mieszkaniowymi',
+		zarzadzanie: 'Zarządzanie - ATU Nieruchomości - Zarządzanie Wspólnotami Mieszkaniowymi',
+		omnie: 'O mnie - ATU Nieruchomości - Zarządzanie Wspólnotami Mieszkaniowymi',
+		oferta: 'Oferta - ATU Nieruchomości - Zarządzanie Wspólnotami Mieszkaniowymi',
+		uprawnienia: 'Uprawnienia - ATU Nieruchomości - Zarządzanie Wspólnotami Mieszkaniowymi',
+		kontakt: 'Kontakt - ATU Nieruchomości - Zarządzanie Wspólnotami Mieszkaniowymi'
+	};
+
+	const pageTitle = $derived(
+		titleBySection[activeId] ?? 'ATU Nieruchomości - Zarządzanie Wspólnotami Mieszkaniowymi'
+	);
 
 	const sections = [
 		{ id: 'atu', label: 'ATU' },
@@ -33,7 +46,7 @@
 		// shared observer
 		const cleanup = createSectionObserver((id) => {
 			activeId = id;
-			history.replaceState(null, '', `#${id}`);
+			updateSectionPath(id);
 		});
 
 		return () => {
@@ -47,12 +60,16 @@
 	}
 
 	function navigate(id: string) {
-		history.replaceState(null, '', `#${id}`);
+		updateSectionPath(id);
 		activeId = id;
 		scrollToSection(id);
 		closeMenu();
 	}
 </script>
+
+<svelte:head>
+	<title>{pageTitle}</title>
+</svelte:head>
 
 <nav
 	class="fixed top-0 inset-x-0 z-(--z-nav) transition-[background-color,border-bottom-color,box-shadow,backdrop-filter] duration-300"

@@ -3,7 +3,7 @@
 	import SectionLabel from '../ui/SectionLabel.svelte';
 	import BulletItem from '../ui/BulletItem.svelte';
 	import GhostButton from '../ui/GhostButton.svelte';
-	import SectionLink from '../ui/SectionLink.svelte';
+	import { scrollToSection, updateSectionPath } from '$lib/sections';
 </script>
 
 <section id="zarzadzanie" class="snap-section">
@@ -44,8 +44,13 @@
 						{/each}
 					</ul>
 				</div>
-				<GhostButton>
-					<SectionLink href="#oferta">Zobacz pełną ofertę</SectionLink>
+				<GhostButton
+					onclick={() => {
+						scrollToSection('oferta');
+						updateSectionPath('oferta');
+					}}
+				>
+					Zobacz pełną ofertę
 				</GhostButton>
 			</div>
 		</div>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { ArrowDown } from '@lucide/svelte';
+	import { scrollToSection, updateSectionPath } from '$lib/sections';
 </script>
 
 <section id="atu" class="snap-section">
@@ -21,12 +22,15 @@
 		>
 	</div>
 
-	<a
-		href="#zarzadzanie"
+	<button
+		onclick={() => {
+			scrollToSection('zarzadzanie');
+			updateSectionPath('zarzadzanie');
+		}}
 		aria-label="Scroll down"
-		class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors animate-bounce"
+		class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors animate-bounce border-none cursor-pointer"
 		style="color: rgba(255,255,255,0.6)"
 	>
 		<ArrowDown size={22} />
-	</a>
+	</button>
 </section>

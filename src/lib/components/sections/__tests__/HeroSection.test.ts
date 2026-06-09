@@ -26,9 +26,8 @@ describe('HeroSection', () => {
 		expect(link).toHaveAttribute('href', 'mailto:zwm24@wp.pl');
 	});
 
-	it('renders a scroll-down anchor linking to the next section', () => {
+	it('renders a scroll-down button to navigate to the zarzadzanie section', () => {
 		render(HeroSection);
-		const anchor = screen.getByRole('link', { name: 'Scroll down' });
-		expect(anchor).toHaveAttribute('href', '#zarzadzanie');
+		expect(screen.getByRole('button', { name: 'Scroll down' })).toBeInTheDocument();
 	});
 });

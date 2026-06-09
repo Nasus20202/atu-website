@@ -1,7 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { ChevronUp, ChevronDown } from '@lucide/svelte';
-	import { SECTION_IDS, scrollToSection, createSectionObserver } from '$lib/sections';
+	import {
+		SECTION_IDS,
+		scrollToSection,
+		createSectionObserver,
+		updateSectionPath
+	} from '$lib/sections';
 
 	let activeIndex = $state(0);
 
@@ -52,7 +57,11 @@
 
 	function go(idx: number) {
 		const id = SECTION_IDS[idx];
-		if (id) scrollToSection(id);
+		if (id) {
+			activeIndex = idx;
+			scrollToSection(id);
+			updateSectionPath(id);
+		}
 	}
 
 	const canUp = $derived(activeIndex > 0);
