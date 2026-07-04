@@ -14,7 +14,7 @@
 </script>
 
 <svelte:head>
-	<title>ATU Nieruchomości - Zarządzanie Wspólnotami Mieszkaniowymi</title>
+	<title>ATU Nieruchomości - Krzysztof Nasuta | Zarządzanie Wspólnotami Mieszkaniowymi</title>
 </svelte:head>
 
 <BackgroundLayer />
