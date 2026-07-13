@@ -1,15 +1,18 @@
 # Stage 1: Build the SvelteKit static site
-FROM node:24.18-alpine AS builder
+FROM node:24.18.0-alpine AS builder
 
 WORKDIR /app
 
-# Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Enable corepack and install pnpm version from package.json "packageManager" field
+RUN corepack enable
 
 # Copy dependency manifests first for better layer caching
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
-RUN pnpm install --frozen-lockfile
+RUN corepack install
+
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store \
+    pnpm install --frozen-lockfile
 
 # Copy all source files
 COPY . .
