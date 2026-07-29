@@ -1,8 +1,10 @@
 {
-	"useTabs": true,
+	"useTabs": false,
+        "semi": true,
 	"singleQuote": true,
-	"trailingComma": "none",
+	"trailingComma": "es5",
 	"printWidth": 100,
+	"tabWidth": 2,
 	"plugins": ["prettier-plugin-svelte"],
 	"overrides": [
 		{
