@@ -20,7 +20,7 @@ COPY . .
 RUN pnpm build
 
 # Stage 2: Serve with nginx (unprivileged)
-FROM nginxinc/nginx-unprivileged:1.31.3-alpine
+FROM nginxinc/nginx-unprivileged:1.31.4-alpine
 
 WORKDIR /app
 
