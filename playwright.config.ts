@@ -26,7 +26,7 @@ export default defineConfig({
 	},
 
 	webServer: {
-		command: 'pnpm build && pnpm preview',
+		command: 'node_modules/.bin/vite build && node_modules/.bin/vite preview',
 		url: 'http://localhost:4173',
 		reuseExistingServer: true,
 		timeout: 120_000
