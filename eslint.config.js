@@ -4,7 +4,6 @@ import tsParser from '@typescript-eslint/parser';
 import svelte from 'eslint-plugin-svelte';
 import globals from 'globals';
 
-/** @type {import('eslint').Linter.Config[]} */
 export default [
 	js.configs.recommended,
 	{
@@ -30,13 +29,13 @@ export default [
 		languageOptions: {
 			...config.languageOptions,
 			parserOptions: {
-				...config.languageOptions?.parserOptions,
+				.../** @type {Record<string, unknown>} */ (config.languageOptions?.parserOptions ?? {}),
 				parser: tsParser
 			},
 			globals: { ...globals.browser }
 		},
 		rules: {
-			...config.rules,
+			...(config.rules ?? {}),
 			'svelte/no-navigation-without-resolve': 'off'
 		}
 	})),

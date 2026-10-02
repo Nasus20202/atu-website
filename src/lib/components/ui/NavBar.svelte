@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { Menu, X } from '@lucide/svelte';
-  import { scrollToSection, createSectionObserver } from '$lib/sections';
+  import { scrollToSection, createSectionObserver } from '#lib/sections.js';
 
   let { onLegalActs: _onLegalActs }: { onLegalActs?: () => void } = $props();
 
