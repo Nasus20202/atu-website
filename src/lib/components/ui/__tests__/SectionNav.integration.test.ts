@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/svelte';
 import { userEvent } from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import SectionNav from '../SectionNav.svelte';
-import { SECTION_IDS } from '$lib/sections';
+import { SECTION_IDS } from '#lib/sections.js';
 
 class MockIntersectionObserver {
   observe() {}

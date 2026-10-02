@@ -5,7 +5,7 @@ import NavBar from '../NavBar.svelte';
 
 const mockScrollToSection = vi.hoisted(() => vi.fn());
 
-vi.mock('$lib/sections', () => ({
+vi.mock('#lib/sections.js', () => ({
   SECTION_IDS: ['atu', 'zarzadzanie', 'omnie', 'oferta', 'uprawnienia', 'kontakt'],
   scrollToSection: mockScrollToSection,
   createSectionObserver: vi.fn(() => vi.fn()),
