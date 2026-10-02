@@ -10,7 +10,6 @@ export default defineConfig({
 		tailwindcss(),
 		sveltekit({
 			compilerOptions: {
-				runs: undefined,
 				runes: ({ filename }: { filename: string }) => {
 					const relativePath = relative(import.meta.dirname, filename);
 					const pathSegments = relativePath.toLowerCase().split(sep);
