@@ -10,7 +10,7 @@ const observerCallbackRef = vi.hoisted(() => ({
   current: undefined as ((_id: string) => void) | undefined,
 }));
 
-vi.mock('$lib/sections', () => ({
+vi.mock('#lib/sections.js', () => ({
   SECTION_IDS: ['atu', 'zarzadzanie', 'omnie', 'oferta', 'uprawnienia', 'kontakt'],
   scrollToSection: mockScrollToSection,
   createSectionObserver: mockCreateSectionObserver.mockImplementation(

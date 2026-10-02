@@ -3,6 +3,9 @@
 	"private": true,
 	"version": "2.0.0",
 	"type": "module",
+	"imports": {
+		"#lib/*": "./src/lib/*"
+	},
 	"packageManager": "pnpm@12.8.1",
 	"scripts": {
 		"dev": "vite dev",
@@ -26,7 +29,7 @@
 		"@lucide/svelte": "^1.17.0",
 		"@playwright/test": "^1.60.0",
 		"@sveltejs/adapter-static": "^4.0.0",
-		"@sveltejs/kit": "^2.63.0",
+		"@sveltejs/kit": "^3.0.0",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
 		"@tailwindcss/vite": "^4.3.0",
 		"@testing-library/jest-dom": "^7.0.0",

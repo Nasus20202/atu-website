@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { createSectionObserver } from '$lib/sections';
+  import { createSectionObserver } from '#lib/sections.js';
 
   // One layer per unique image so we can cross-fade properly.
   // Hero + Management share hero.webp — same id keeps bg stable between them.
