@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
+import { gotoHome } from './helpers';
 
 async function getHash(page: Page): Promise<string> {
 	return page.evaluate(() => window.location.hash);
@@ -18,8 +19,7 @@ test.describe('Navbar — desktop', () => {
 	test.use({ viewport: { width: 1280, height: 800 } });
 
 	test.beforeEach(async ({ page }) => {
-		await page.goto('/');
-		await page.locator('#atu').waitFor({ state: 'visible' });
+		await gotoHome(page);
 	});
 
 	test('is transparent on load (no scrolled-nav class)', async ({ page }) => {
@@ -75,8 +75,7 @@ test.describe('Navbar — mobile', () => {
 	test.use({ viewport: { width: 390, height: 844 } });
 
 	test.beforeEach(async ({ page }) => {
-		await page.goto('/');
-		await page.locator('#atu').waitFor({ state: 'visible' });
+		await gotoHome(page);
 	});
 
 	test('hamburger is visible and desktop nav links are hidden', async ({ page }) => {

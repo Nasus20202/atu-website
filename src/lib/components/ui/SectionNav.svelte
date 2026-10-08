@@ -43,9 +43,12 @@
     };
 
     window.addEventListener('keydown', onKeyDown);
+    // Signal to e2e tests that hydration is done and keyboard shortcuts are live.
+    document.documentElement.dataset.hydrated = 'true';
 
     return () => {
       window.removeEventListener('keydown', onKeyDown);
+      delete document.documentElement.dataset.hydrated;
       cleanupObserver();
     };
   });

@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
+import { gotoHome } from './helpers';
 
 /**
  * Scroll behaviour tests.
@@ -36,8 +37,7 @@ async function pressAndExpectHash(
 
 test.describe('Keyboard scroll navigation', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto('/');
-		await page.locator('#atu').waitFor({ state: 'visible' });
+		await gotoHome(page);
 	});
 
 	test('ArrowDown advances one section at a time through all sections', async ({ page }) => {
@@ -93,8 +93,7 @@ test.describe('Keyboard scroll navigation', () => {
 
 test.describe('Hero scroll-down arrow', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto('/');
-		await page.locator('#atu').waitFor({ state: 'visible' });
+		await gotoHome(page);
 	});
 
 	test('clicking the scroll-down arrow navigates to #zarzadzanie', async ({ page }) => {
@@ -114,8 +113,7 @@ test.describe('Hero scroll-down arrow', () => {
 
 test.describe('Hash updates on scroll', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto('/');
-		await page.locator('#atu').waitFor({ state: 'visible' });
+		await gotoHome(page);
 	});
 
 	test('URL hash reflects the active section as user navigates through all sections', async ({
@@ -144,8 +142,7 @@ test.describe('Hash updates on scroll', () => {
 
 test.describe('Mouse wheel scroll', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto('/');
-		await page.locator('#atu').waitFor({ state: 'visible' });
+		await gotoHome(page);
 		// Hover the snap-root so wheel events are routed to the scrollable container
 		await page.locator('.snap-root').hover();
 	});
@@ -179,8 +176,7 @@ test.describe('Mouse wheel scroll', () => {
 
 test.describe('Snap-root scroll containment', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto('/');
-		await page.locator('#atu').waitFor({ state: 'visible' });
+		await gotoHome(page);
 	});
 
 	test('snap-root scrollTop is 0 on the first section', async ({ page }) => {
