@@ -1,5 +1,5 @@
-import { test, expect, type Page } from '@playwright/test';
-import { gotoHome } from './helpers';
+import { test, expect } from '@playwright/test';
+import { getHash, gotoHome, pressAndExpectHash } from './helpers';
 
 /**
  * Scroll behaviour tests.
@@ -14,26 +14,6 @@ import { gotoHome } from './helpers';
  */
 
 const SECTIONS = ['#atu', '#zarzadzanie', '#omnie', '#oferta', '#uprawnienia', '#kontakt'] as const;
-
-async function getHash(page: Page): Promise<string> {
-	return page.evaluate(() => window.location.hash);
-}
-
-/**
- * Press a key and poll until the URL hash equals the expected value.
- * Uses toPass() instead of a fixed timeout to avoid flakiness on slow CI.
- */
-async function pressAndExpectHash(
-	page: Page,
-	key: string,
-	expectedHash: string,
-	timeout = 2000
-): Promise<void> {
-	await page.keyboard.press(key);
-	await expect(async () => {
-		expect(await getHash(page)).toBe(expectedHash);
-	}).toPass({ timeout });
-}
 
 test.describe('Keyboard scroll navigation', () => {
 	test.beforeEach(async ({ page }) => {

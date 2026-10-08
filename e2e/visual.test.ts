@@ -1,18 +1,15 @@
 import { test, expect, type Page } from '@playwright/test';
+import { gotoHome, jumpToSection } from './helpers';
 
 async function scrollToSection(page: Page, selector: string): Promise<void> {
-	await page.evaluate((sel) => {
-		const el = document.querySelector(sel);
-		if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' });
-	}, selector);
+	await jumpToSection(page, selector);
 	// Wait for snap physics to settle
 	await page.waitForTimeout(300);
 }
 
 test.describe('Visual regression', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto('/');
-		await page.locator('#atu').waitFor({ state: 'visible' });
+		await gotoHome(page);
 	});
 
 	test('Hero section (#atu)', async ({ page }) => {
@@ -63,8 +60,7 @@ test.describe('Visual regression — dark mode', () => {
 	test.use({ colorScheme: 'dark' });
 
 	test.beforeEach(async ({ page }) => {
-		await page.goto('/');
-		await page.locator('#atu').waitFor({ state: 'visible' });
+		await gotoHome(page);
 	});
 
 	test('Hero section — dark (#atu)', async ({ page }) => {

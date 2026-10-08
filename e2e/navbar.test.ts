@@ -1,19 +1,5 @@
-import { test, expect, type Page } from '@playwright/test';
-import { gotoHome } from './helpers';
-
-async function getHash(page: Page): Promise<string> {
-	return page.evaluate(() => window.location.hash);
-}
-
-async function expectHash(
-	page: Page,
-	expectedHash: string,
-	timeout = 2000
-): Promise<void> {
-	await expect(async () => {
-		expect(await getHash(page)).toBe(expectedHash);
-	}).toPass({ timeout });
-}
+import { test, expect } from '@playwright/test';
+import { expectHash, gotoHome } from './helpers';
 
 test.describe('Navbar — desktop', () => {
 	test.use({ viewport: { width: 1280, height: 800 } });
