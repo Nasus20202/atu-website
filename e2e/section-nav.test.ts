@@ -1,23 +1,9 @@
-import { test, expect, type Page } from '@playwright/test';
-
-async function getHash(page: Page): Promise<string> {
-	return page.evaluate(() => window.location.hash);
-}
-
-async function expectHash(
-	page: Page,
-	expectedHash: string,
-	timeout = 2000
-): Promise<void> {
-	await expect(async () => {
-		expect(await getHash(page)).toBe(expectedHash);
-	}).toPass({ timeout });
-}
+import { test, expect } from '@playwright/test';
+import { expectHash, gotoHome } from './helpers';
 
 test.describe('SectionNav arrows', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto('/');
-		await page.locator('#atu').waitFor({ state: 'visible' });
+		await gotoHome(page);
 	});
 
 	test('Previous section arrow is disabled on the first section', async ({ page }) => {

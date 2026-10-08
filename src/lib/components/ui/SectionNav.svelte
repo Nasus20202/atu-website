@@ -43,9 +43,11 @@
     };
 
     window.addEventListener('keydown', onKeyDown);
+    document.documentElement.dataset.hydrated = 'true'; // read by e2e gotoHome()
 
     return () => {
       window.removeEventListener('keydown', onKeyDown);
+      delete document.documentElement.dataset.hydrated;
       cleanupObserver();
     };
   });

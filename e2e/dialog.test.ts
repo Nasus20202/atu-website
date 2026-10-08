@@ -1,10 +1,8 @@
 import { test, expect, type Page } from '@playwright/test';
+import { gotoHome, jumpToSection } from './helpers';
 
 async function openDialog(page: Page): Promise<void> {
-	await page.evaluate((sel) => {
-		const el = document.querySelector(sel);
-		if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' });
-	}, '#uprawnienia');
+	await jumpToSection(page, '#uprawnienia');
 	await page.locator('#uprawnienia button:has-text("Akty prawne")').waitFor({ state: 'visible' });
 	await page.click('#uprawnienia button:has-text("Akty prawne")');
 	await page.locator('dialog[aria-label="Akty prawne"]').waitFor({ state: 'visible' });
@@ -12,8 +10,7 @@ async function openDialog(page: Page): Promise<void> {
 
 test.describe('Legal acts dialog', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto('/');
-		await page.locator('#atu').waitFor({ state: 'visible' });
+		await gotoHome(page);
 	});
 
 	test('opens when the Akty prawne button is clicked', async ({ page }) => {
