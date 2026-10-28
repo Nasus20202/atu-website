@@ -1,10 +1,13 @@
 # Stage 1: Build the SvelteKit static site
-FROM node:24.22.1-alpine@sha256:06d7adf3e0ef61a13f1d28682726366f97a15aa1888c934d3ecec86c33918b53 AS builder
+FROM node:26.12.1-alpine@sha256:40cd011b55415bc894e45b02fdd5a5dfde056921b7d23a64c74f80497af48797 AS builder
 
 WORKDIR /app
 
 # Enable corepack and install pnpm version from package.json "packageManager" field
-RUN corepack enable
+# Node 26 images no longer bundle corepack, so install it from npm first
+# renovate: datasource=npm depName=corepack
+ARG COREPACK_VERSION=0.36.0
+RUN npm install -g corepack@${COREPACK_VERSION} && corepack enable
 
 # Copy dependency manifests first for better layer caching
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
