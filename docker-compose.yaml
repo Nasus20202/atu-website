@@ -1,6 +1,6 @@
 services:
   web:
-    image: ghcr.io/nasus20202/atu-website:latest@sha256:0b546313035c0775acde1a68883aebf21dea961d484d0166af509c3eb91676e4
+    image: ghcr.io/nasus20202/atu-website:latest@sha256:63957fa65d16f400f85f520f74e312962debc2e3cd6fe793854a7bdd9cee4f6e
     ports:
       - "8080:8080"
     restart: unless-stopped
