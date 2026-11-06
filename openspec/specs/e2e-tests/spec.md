@@ -10,7 +10,7 @@ Defines the end-to-end testing setup, configuration, and coverage expectations f
 
 The project SHALL have a `playwright.config.ts` at the project root that:
 
-- Uses `@playwright/test` with Chromium, Firefox, WebKit, and a mobile viewport (Pixel 5 via Chromium)
+- Uses `@playwright/test` with Chromium, Firefox, WebKit, and mobile projects: Pixel 5 via Chromium, Firefox at the Pixel 5 viewport (Playwright has no Firefox phone profile), and iPhone 13 via WebKit
 - Sets `testDir: './e2e'`
 - Configures `webServer` to run `pnpm build && pnpm preview` and wait for `http://localhost:4173`
 - Sets `baseURL: 'http://localhost:4173'`
@@ -157,7 +157,7 @@ Visual regression baselines SHALL be generated for:
 - Chromium desktop (1280×800) — primary baseline
 - Mobile viewport using Pixel 5 device emulation (393×851) via Chromium
 
-Firefox and WebKit SHALL run behaviour tests only (not visual regression) to avoid cross-browser rendering noise in committed baselines.
+Firefox and WebKit, desktop and mobile, SHALL run behaviour tests only (not visual regression) to avoid cross-browser rendering noise in committed baselines. The mouse wheel tests are skipped on mobile WebKit, which Playwright does not support.
 
 #### Scenario: Mobile visual baseline matches
 
