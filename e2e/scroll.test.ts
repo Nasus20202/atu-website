@@ -121,6 +121,11 @@ test.describe('Hash updates on scroll', () => {
 });
 
 test.describe('Mouse wheel scroll', () => {
+	test.skip(
+		({ browserName, isMobile }) => browserName === 'webkit' && isMobile,
+		'Playwright does not support the mouse wheel in mobile WebKit'
+	);
+
 	test.beforeEach(async ({ page }) => {
 		await gotoHome(page);
 		// Hover the snap-root so wheel events are routed to the scrollable container

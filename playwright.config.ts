@@ -55,6 +55,17 @@ export default defineConfig({
 		{
 			name: 'Mobile Chrome',
 			use: { ...devices['Pixel 5'] }
+		},
+		{
+			// Behaviour only. Playwright has no Firefox phone profile: this is the phone viewport
+			name: 'firefox-mobile',
+			use: { ...devices['Desktop Firefox'], viewport: devices['Pixel 5'].viewport },
+			testIgnore: '**/visual.test.ts'
+		},
+		{
+			name: 'webkit-mobile',
+			use: { ...devices['iPhone 13'], deviceScaleFactor: 1 },
+			testIgnore: '**/visual.test.ts'
 		}
 	]
 });
