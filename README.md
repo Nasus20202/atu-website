@@ -58,7 +58,7 @@ pnpm vitest run
 Run E2E tests (Playwright):
 
 ```sh
-pnpm exec playwright install --with-deps chromium firefox
+pnpm exec playwright install --with-deps chromium firefox webkit
 pnpm playwright test
 ```
 

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { getHash, gotoHome, pressAndExpectHash } from './helpers';
+import { getHash, gotoHome, pressAndExpectHash, SETTLE_TIMEOUT_MS } from './helpers';
 
 /**
  * Scroll behaviour tests.
@@ -81,7 +81,7 @@ test.describe('Hero scroll-down arrow', () => {
 		await page.click('a[aria-label="Scroll down"]', { force: true });
 		await expect(async () => {
 			expect(await getHash(page)).toBe('#zarzadzanie');
-		}).toPass({ timeout: 2000 });
+		}).toPass({ timeout: SETTLE_TIMEOUT_MS });
 	});
 
 	test('scroll-down arrow is not visible after leaving the hero section', async ({ page }) => {
@@ -116,7 +116,7 @@ test.describe('Hash updates on scroll', () => {
 		await page.click('button[aria-label="Go to section 4"]');
 		await expect(async () => {
 			expect(await getHash(page)).toBe('#oferta');
-		}).toPass({ timeout: 2000 });
+		}).toPass({ timeout: SETTLE_TIMEOUT_MS });
 	});
 });
 
@@ -131,25 +131,25 @@ test.describe('Mouse wheel scroll', () => {
 		await page.mouse.wheel(0, 600);
 		await expect(async () => {
 			expect(await getHash(page)).toBe('#zarzadzanie');
-		}).toPass({ timeout: 2000 });
+		}).toPass({ timeout: SETTLE_TIMEOUT_MS });
 	});
 
 	test('scrolling up retreats to the previous section', async ({ page }) => {
 		await page.mouse.wheel(0, 600);
 		await expect(async () => {
 			expect(await getHash(page)).toBe('#zarzadzanie');
-		}).toPass({ timeout: 2000 });
+		}).toPass({ timeout: SETTLE_TIMEOUT_MS });
 		await page.mouse.wheel(0, -600);
 		await expect(async () => {
 			expect(await getHash(page)).toBe('#atu');
-		}).toPass({ timeout: 2000 });
+		}).toPass({ timeout: SETTLE_TIMEOUT_MS });
 	});
 
 	test('scrolled section is fully in viewport', async ({ page }) => {
 		await page.mouse.wheel(0, 600);
 		await expect(async () => {
 			expect(await getHash(page)).toBe('#zarzadzanie');
-		}).toPass({ timeout: 2000 });
+		}).toPass({ timeout: SETTLE_TIMEOUT_MS });
 		await expect(page.locator('#zarzadzanie')).toBeInViewport();
 	});
 });
@@ -177,6 +177,6 @@ test.describe('Snap-root scroll containment', () => {
 				return { rootScroll: r.scrollTop, sectionOffset: s.offsetTop };
 			});
 			expect(Math.abs(rootScroll - sectionOffset)).toBeLessThanOrEqual(4);
-		}).toPass({ timeout: 2000 });
+		}).toPass({ timeout: SETTLE_TIMEOUT_MS });
 	});
 });
