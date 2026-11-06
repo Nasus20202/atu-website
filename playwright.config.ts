@@ -39,9 +39,15 @@ export default defineConfig({
 			use: { ...devices['Desktop Chrome'] }
 		},
 		{
-			// Visual regression runs on chromium only; firefox does behaviour only
+			// Visual regression runs on chromium only; firefox and webkit do behaviour only
 			name: 'firefox',
 			use: { ...devices['Desktop Firefox'] },
+			testIgnore: '**/visual.test.ts'
+		},
+		{
+			// The Safari profile defaults to 2x, which software rendering on CI cannot keep up with
+			name: 'webkit',
+			use: { ...devices['Desktop Safari'], deviceScaleFactor: 1 },
 			testIgnore: '**/visual.test.ts'
 		},
 

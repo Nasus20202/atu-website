@@ -17,6 +17,7 @@ The project SHALL have a `playwright.config.ts` at the project root that:
 - Enables `fullyParallel: false` (sections must be tested sequentially due to scroll-snap)
 - Sets `snapshotDir: './e2e/snapshots'`
 - Disables animations via `actionTimeout` and `expect` thresholds appropriate for visual regression
+- The WebKit project uses a device scale factor of 1, because the 2x of the Safari profile is too heavy for software rendering on CI runners
 - Visual regression tests run on Chromium desktop only (to avoid cross-browser rendering noise in baselines); behaviour tests run on all projects
 
 #### Scenario: Playwright config loads
@@ -209,13 +210,13 @@ The existing `check` job in `.github/workflows/build-and-push.yaml` SHALL be ext
 
 Required steps (added after `Install dependencies`):
 
-1. Install Chromium: `pnpm exec playwright install chromium`
+1. Install the browsers: `pnpm exec playwright install --with-deps chromium firefox webkit`
 2. Run e2e tests: `pnpm test:e2e`
 
 #### Scenario: E2E tests run in CI
 
 - **WHEN** a push or pull request targets the `main` branch
-- **THEN** the `check` job installs Chromium and runs `pnpm test:e2e`, failing the job if any test fails
+- **THEN** the `check` job installs Chromium, Firefox and WebKit and runs `pnpm test:e2e`, failing the job if any test fails
 
 #### Scenario: CI fails on visual regression
 

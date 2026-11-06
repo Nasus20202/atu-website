@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { expectHash, gotoHome } from './helpers';
+import { expectHash, gotoHome, SETTLE_TIMEOUT_MS } from './helpers';
 
 test.describe('Navbar — desktop', () => {
 	test.use({ viewport: { width: 1280, height: 800 } });
@@ -16,7 +16,7 @@ test.describe('Navbar — desktop', () => {
 	test('gains scrolled-nav class after scrolling past 80px', async ({ page }) => {
 		const nav = page.locator('nav[aria-label="Nawigacja główna"]');
 		await page.keyboard.press('ArrowDown');
-		await expect(nav).toHaveClass(/scrolled-nav/, { timeout: 2000 });
+		await expect(nav).toHaveClass(/scrolled-nav/, { timeout: SETTLE_TIMEOUT_MS });
 	});
 
 	test('clicking a nav link scrolls to the correct section and updates hash', async ({ page }) => {
