@@ -6,7 +6,7 @@
 	"imports": {
 		"#lib/*": "./src/lib/*"
 	},
-	"packageManager": "pnpm@12.17.0",
+	"packageManager": "pnpm@12.18.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
