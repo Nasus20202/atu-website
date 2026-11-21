@@ -42,9 +42,9 @@
           <div class="rounded-xl border border-border contact-card p-5 flex flex-col gap-3">
             <div class="flex items-center gap-2">
               <span class="text-primary"><item.icon size={20} /></span>
-              <span class="text-xs font-semibold uppercase tracking-widest text-primary"
-                >{item.label}</span
-              >
+              <span class="text-xs font-semibold uppercase tracking-widest text-primary">
+                {item.label}
+              </span>
             </div>
 
             {#if item.values}
