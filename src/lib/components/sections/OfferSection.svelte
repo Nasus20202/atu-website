@@ -10,13 +10,13 @@
       </h2>
 
       <p class="text-text text-base leading-relaxed mb-5 max-w-3xl">
-        Firma <strong class="text-heading"
-          >ATU – Zarządzanie Wspólnotami Mieszkaniowymi – ZWM24@wp.pl</strong
-        >
+        Firma <strong class="text-heading">
+          ATU – Zarządzanie Wspólnotami Mieszkaniowymi – ZWM24@wp.pl
+        </strong>
         oferuje
-        <strong class="text-heading"
-          >kompleksowe usługi zarządzania nieruchomościami mieszkaniowymi</strong
-        >
+        <strong class="text-heading">
+          kompleksowe usługi zarządzania nieruchomościami mieszkaniowymi
+        </strong>
         w zakresie prowadzenia bieżących spraw związanych ze zwykłą eksploatacją budynku, nieprzekraczających
         zwykłego zarządu nieruchomością wspólną oraz utrzymania obiektu w stanie niepogorszonym ponad
         granice normalnego zużycia.
