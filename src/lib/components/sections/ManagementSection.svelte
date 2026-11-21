@@ -13,9 +13,9 @@
         Zarządzanie Wspólnotami Mieszkaniowymi
       </h2>
       <p class="text-text text-base leading-relaxed mb-6">
-        <strong class="text-heading"
-          >ATU – Zarządzanie Wspólnotami Mieszkaniowymi – ZWM24@wp.pl</strong
-        >
+        <strong class="text-heading">
+          ATU – Zarządzanie Wspólnotami Mieszkaniowymi – ZWM24@wp.pl
+        </strong>
         to firma rodzinna oferująca usługi w zakresie zarządzania i administrowania Wspólnotami Mieszkaniowymi.<br
         />
         <em>Z przyjemnością podejmiemy się zarządzania Państwa nieruchomością.</em>

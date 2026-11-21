@@ -17,8 +17,10 @@
     <a
       href="mailto:zwm24@wp.pl"
       style="color: rgba(255,255,255,0.55)"
-      class="hover:text-white transition-colors drop-shadow">zwm24@wp.pl</a
+      class="hover:text-white transition-colors drop-shadow"
     >
+      zwm24@wp.pl
+    </a>
   </div>
 
   <a
